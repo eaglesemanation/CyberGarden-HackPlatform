@@ -10,37 +10,42 @@
 </script>
 
 <header>
-	<nav>
-		<h1>GardenMasters</h1>
-		<ul>
-			<li><a sveltekit:prefetch href="/">main</a></li>
-			{#if Token === null}
-				<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
-			{:else}
-			<li><a sveltekit:prefetch href="/account">account</a></li>
-			{/if}
-			
-			<li><a sveltekit:prefetch href="/poster">Poster</a></li>
-			{#if (Status==="organizer")||(Status==="admin")}
-				<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
-			{/if}
-			<li><a sveltekit:prefetch href="/teaming">teaming</a></li>
-		</ul>
-	</nav>
+	<div class="wrapper">
+		<a href="/" class="logo-brand">Garden<span class="green">Masters</span></a>
+		<nav>
+			<ul>
+				<li><a sveltekit:prefetch href="/">main</a></li>
+				{#if Token === null}
+					<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
+				{:else}
+				<li><a sveltekit:prefetch href="/account">account</a></li>
+				{/if}
+				
+				<li><a sveltekit:prefetch href="/poster">Poster</a></li>
+				{#if (Status==="organizer")||(Status==="admin")}
+					<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
+				{/if}
+				<li><a sveltekit:prefetch href="/teaming">teaming</a></li>
+			</ul>
+		</nav>
+	</div>
 </header>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
+
+	.wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		align-self: center;
+		margin: auto;
+		margin-top: 2%;
+	}
 
 	header {
 		display: flex;
 		justify-content: space-between;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-		--background: rgba(255, 255, 255, 0.7);
 	}
 
 	ul {
@@ -61,9 +66,21 @@
 		height: 100%;
 	}
 
-	h1 {
-		font-family: 'Red Hat Display';
-		font-size: 14px;
+	.logo-brand {
+		color: #00160A;
+		font-family: 'Ubuntu';
+		text-decoration: none;
+		font-size: 30px;
+		font-weight: 700;
+		padding-left: 5%;
+	}
+
+	.logo-brand:hover {
+		color: #00160A;
+	}
+
+	.green {
+		color: #43DFA8;
 	}
 
 	nav a {
