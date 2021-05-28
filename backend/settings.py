@@ -1,4 +1,3 @@
-
 PROD_TORTOISE_ORM = {
     "connections": {"default": "sqlite://db/prod/db.sqlite3"},
     "apps": {

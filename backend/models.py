@@ -1,5 +1,4 @@
-from tortoise import Model, Tortoise
-from tortoise import fields
+from tortoise import Model, Tortoise, fields
 
 
 class User(Model):
@@ -14,7 +13,7 @@ class User(Model):
         return str(self.email)
 
     class PydanticMeta:
-        exclude = ['hashed_password', 'is_admin']
+        exclude = ["hashed_password", "is_admin"]
 
 
 Tortoise.init_models(["models"], "models")
