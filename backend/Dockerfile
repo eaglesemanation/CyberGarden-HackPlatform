@@ -1,5 +1,5 @@
 FROM python:3.8-slim
-ADD requirements.txt ./temp/requirements.txt
+COPY requirements.txt ./temp/requirements.txt
 RUN pip3 install -r ./temp/requirements.txt
 WORKDIR backend/
 COPY . .

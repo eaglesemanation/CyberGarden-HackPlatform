@@ -5,6 +5,7 @@ from tortoise import Model, Tortoise, fields
 
 class UserType(str, Enum):
     PARTICIPANT = "participant"
+    CAPTAIN = "captain"
     ORGANIZER = "organizer"
     ADMIN = "admin"
 
@@ -32,6 +33,7 @@ class Participant(Model):
     id = fields.IntField(pk=True)
     user = fields.OneToOneField("models.User", related_name="as_participant")
     captain: fields.ForeignKeyRelation["Captain"]
+    teams: fields.ManyToManyRelation["Team"]
 
 
 class Captain(Model):
@@ -57,11 +59,20 @@ class Team(Model):
     participants: fields.ManyToManyRelation[Participant] = fields.ManyToManyField(
         "models.Participant"
     )
+    invite_link = fields.CharField(max_length=64)
     capitan: fields.ForeignKeyRelation["Captain"]
     hackathons: fields.ManyToManyRelation["Hackathon"]
 
     def __repr__(self):
         return str(self.name)
+
+
+class Sponsor(Model):
+    id = fields.IntField(pk=True)
+    name = fields.CharField(max_length=128)
+    link = fields.CharField(max_length=128)
+    image = fields.CharField(max_length=128)
+    hackathons: fields.ManyToManyRelation["Hackathon"]
 
 
 class HackathonTag(Model):
@@ -82,6 +93,10 @@ class Hackathon(Model):
     start_date = fields.DatetimeField()
     location_longtitude = fields.FloatField(null=True)
     location_latitude = fields.FloatField(null=True)
+    sponsors: fields.ManyToManyRelation["Sponsor"] = fields.ManyToManyField(
+        "models.Sponsor", related_name="hackathons"
+    )
+    
     teams: fields.ManyToManyRelation[Team] = fields.ManyToManyField(
         "models.Team", related_name="hackathons"
     )
