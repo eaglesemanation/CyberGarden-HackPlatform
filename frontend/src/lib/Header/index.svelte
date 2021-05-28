@@ -10,7 +10,6 @@
 			<li><a sveltekit:prefetch href="/poster">Poster</a></li>
 			<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
 			<li><a sveltekit:prefetch href="/teaming">teaming</a></li>
-			<li><a sveltekit:prefetch href="/eventPage">event page</a></li>
 		</ul>
 	</nav>
 </header>
