@@ -17,7 +17,17 @@
 <svelte:head>
 	<title>poster</title>
 </svelte:head>
-{#each postsMass as post}
-	<Post {...post}/>
-{/each}
+
+<div class="events-block">
+	{#each postsMass as post}
+		<Post {...post}/>
+	{/each}
+</div>
 <!-- <Post {...forExample[1]}/> -->
+
+<style>
+	.events-block {
+		display: flex;
+		align-self: center;
+	}
+</style>

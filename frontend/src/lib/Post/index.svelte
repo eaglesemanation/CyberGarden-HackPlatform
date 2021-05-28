@@ -20,10 +20,10 @@
         border: 3px solid #E1E3E6;
         box-sizing: border-box;
         border-radius: 30px;
-        max-width: 30%;
+        width: 681px;
         padding-top: 0;
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-left: 2%;
+        margin-right: 2%;
         padding: 2%;
     }
 
