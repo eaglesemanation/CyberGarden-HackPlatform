@@ -4,6 +4,7 @@
 
 <header>
 	<nav>
+		<h1>GardenMasters</h1>
 		<ul>
 			<li><a sveltekit:prefetch href="/">main</a></li>
 			<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
@@ -15,6 +16,8 @@
 </header>
 
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&display=swap');
+
 	header {
 		display: flex;
 		justify-content: space-between;
@@ -42,6 +45,10 @@
 	li {
 		position: relative;
 		height: 100%;
+	}
+
+	h1 {
+		font-family: 'Red Hat Display';
 	}
 
 	nav a {
