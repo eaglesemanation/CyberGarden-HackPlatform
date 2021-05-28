@@ -49,6 +49,7 @@
 
 	h1 {
 		font-family: 'Red Hat Display';
+		font-size: 14px;
 	}
 
 	nav a {
