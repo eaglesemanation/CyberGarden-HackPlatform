@@ -8,3 +8,4 @@ node_modules
 .pnp.cjs
 yarn.lock
 .yarnrc.yml
+package-lock.json
