@@ -2,11 +2,21 @@
 	let mail = "";
 	let password = "";
     function validate(){
-
+        if(mail === "") {
+            alert("Введите mail")
+            return false;
+        }
+        if(password === "") {
+            alert("Введите пароль")
+            return false;
+        }
+        return true;
     }
 	function submit(){
+        console.log("start");
         if(!validate()) return;
-		console.log("authorization");
+        //тута запрос к серверу
+		console.log("end");
 	}
 </script>
 
