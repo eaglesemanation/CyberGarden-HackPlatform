@@ -1,10 +1,17 @@
 <script>
+    import { onMount } from "svelte";
 	let mail = "";
 	let password = "";
+    let Token;
+    onMount(() => {
+        Token = localStorage.getItem("token");
+        console.log(Token)
+    })
+    import { userToken, userStatus } from '$lib/_store';
     function validate(){
         if(mail === "") {
             alert("Введите mail")
-            return false;
+            return false;   
         }
         if(password === "") {
             alert("Введите пароль")
@@ -13,14 +20,15 @@
         return true;
     }
 	function submit(){
-        console.log("start");
         if(!validate()) return;
         //тута запрос к серверу
-		console.log("end");
+        userToken.updateInfo("12:asd1:12w1e:1231");//заглушка, получим с бека
+        userStatus.updateInfo("admin");//заглушка, получим с бека
+		window.location.replace("/");//если все прошло успешно
 	}
 </script>
 
-<h1>authorization</h1>
+<h1>token in storage (svelte) - {Token}</h1>
 <div class="authBox">
     <input bind:value={mail} placeholder="Mail" type="email">
     <input bind:value={password} placeholder="Пароль" type="password">

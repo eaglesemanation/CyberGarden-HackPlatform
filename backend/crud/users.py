@@ -4,7 +4,7 @@ from typing import Any, List, Optional, Union
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from models import User
+from models import Participant, User, UserType
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from settings import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY
@@ -78,8 +78,8 @@ async def get_user(token: str = Depends(oauth2_scheme)) -> User:
 
 
 async def get_admin(user: User = Depends(get_user)):
-    if user.is_admin:
-        return user
+    if user.type == UserType.ADMIN:
+        return user.as_admin
     raise HTTPException(status_code=403, detail="Forbidden")
 
 
@@ -94,10 +94,9 @@ def create_access_token(data, expires_data: Optional[timedelta] = None):
     return encoded_jwt
 
 
-async def create_user_and_token(email: str, password: str, fio: str):
-    user = await User.create(
-        email=email, hashed_password=pwd_context.hash(password), fio=fio
-    )
+async def create_user_and_token(email: str, password: str):
+    user = await User.create(email=email, hashed_password=pwd_context.hash(password))
+    await Participant.create(user=user)
     expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     return user, create_access_token(data={"sub": user.email}, expires_data=expires)
 
@@ -117,13 +116,11 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 @router.post("/create", response_model=Token)
-async def new_user(fio: str, form_data: OAuth2PasswordRequestForm = Depends()):
+async def new_user(form_data: OAuth2PasswordRequestForm = Depends()):
     user = await User.get_or_none(email=form_data.username)
     if user is not None:
         raise HTTPException(400, "User already exists")
-    user, token = await create_user_and_token(
-        form_data.username, form_data.password, fio
-    )
+    user, token = await create_user_and_token(form_data.username, form_data.password)
     return Token(access_token=token, token_type="bearer", user_id=user.id)
 
 

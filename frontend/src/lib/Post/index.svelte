@@ -14,7 +14,7 @@
 <style>
     .postBox{
         margin-top: 30px;
-        border: 4px double black;
+        border: 1px solid #E1E3E6;
         width: 50vw;
         margin-left: auto;
         margin-right: auto;
