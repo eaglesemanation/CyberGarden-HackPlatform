@@ -1,4 +1,4 @@
-version: '3'
+version: '3.9'
 services:
   frontend:
     build: "./frontend"
@@ -16,6 +16,8 @@ services:
     build: "./backend"
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend:/backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.entrypoints=https"
