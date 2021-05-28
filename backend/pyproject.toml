@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "CyberGarden-HackPlatform-API"
+version = "0.0.1"
+description = "CyberGarden Hackathon project API based on FastAPI"
+authors = [
+    "Vladimir Romashchenko <eaglesemanation@gmail.com>",
+    "Dmitriy <dmitriy1d01@gmail.com>"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+tortoise-orm = "^0.17.3"
+fastapi = "^0.65.1"
+uvicorn = "^0.13.4"
+passlib = "^1.7.4"
+python-jose = "^3.2.0"
+python-multipart = "^0.0.5"
+
+[tool.poetry.dev-dependencies]
+python-language-server = "^0.36.2"
+black = "^21.5b1"
+mypy = "^0.812"
+pylint = "^2.8.2"
+isort = "^5.8.0"
+autoimport = "^0.7.0"
+flake8 = "^3.9.2"
+bandit = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
