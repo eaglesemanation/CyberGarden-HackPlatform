@@ -11,7 +11,7 @@
 
 <header>
 	<nav>
-		<h1>GardenMasters</h1>
+		<h1>Garden<span class="green">Masters</span></h1>
 		<ul>
 			<li><a sveltekit:prefetch href="/">main</a></li>
 			{#if Token === null}
@@ -30,7 +30,7 @@
 </header>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&display=swap');
+	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
 
 	header {
 		display: flex;
@@ -62,8 +62,13 @@
 	}
 
 	h1 {
-		font-family: 'Red Hat Display';
-		font-size: 14px;
+		font-family: 'Ubuntu';
+		font-size: 30px;
+		font-weight: 700;
+	}
+
+	.green {
+		color: #43DFA8;
 	}
 
 	nav a {

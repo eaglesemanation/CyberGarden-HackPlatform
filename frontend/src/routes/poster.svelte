@@ -2,9 +2,9 @@
 	import Post from '$lib/Post/index.svelte';
 	const postsMass = [
 		{
-			name: "Cyber Garden",
+			name: "CyberGarden Hack",
 			date: "28.05.2021",
-			about: "супер пупер дупер хак"
+			about: "Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей"
 		},
 		{
 			name: "hack moon",
