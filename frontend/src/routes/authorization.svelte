@@ -20,12 +20,11 @@
         return true;
     }
 	function submit(){
-        console.log("start");
         if(!validate()) return;
         //тута запрос к серверу
         userToken.updateInfo("12:asd1:12w1e:1231");//заглушка, получим с бека
-        userStatus.updateInfo("participant");//заглушка, получим с бека
-		console.log("end");
+        userStatus.updateInfo("admin");//заглушка, получим с бека
+		window.location.replace("/");//если все прошло успешно
 	}
 </script>
 

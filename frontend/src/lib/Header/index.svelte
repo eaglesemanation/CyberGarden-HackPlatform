@@ -1,5 +1,12 @@
 <script>
 	import { page } from '$app/stores';
+	import { onMount } from "svelte";
+	let Token;
+	let Status;
+    onMount(() => {
+        Token = localStorage.getItem("token");
+		Status = localStorage.getItem("status");
+    })
 </script>
 
 <header>
@@ -7,9 +14,16 @@
 		<h1>GardenMasters</h1>
 		<ul>
 			<li><a sveltekit:prefetch href="/">main</a></li>
-			<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
+			{#if Token === null}
+				<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
+			{:else}
+			<li><a sveltekit:prefetch href="/account">account</a></li>
+			{/if}
+			
 			<li><a sveltekit:prefetch href="/poster">Poster</a></li>
-			<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
+			{#if (Status==="organizer")||(Status==="admin")}
+				<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
+			{/if}
 			<li><a sveltekit:prefetch href="/teaming">teaming</a></li>
 		</ul>
 	</nav>
