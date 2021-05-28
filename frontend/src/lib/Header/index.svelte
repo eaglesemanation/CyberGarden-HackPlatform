@@ -21,14 +21,14 @@
         </ul>
     </div>
 	{#if Token === null}
-    	<div sveltekit:prefetch href="/authorization"><button class="main-button">Авторизация</button></div>
+    	<a sveltekit:prefetch href="/authorization" class="main-button">Авторизация</a>
 	{:else}
-		<div sveltekit:prefetch href="/account"><button class="main-button">Профиль</button></div>
+		<a sveltekit:prefetch href="/account" class="main-button">Профиль</a>
 	{/if}
 </header>
 
 <style>
-	
+
 	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
 
 	header {
@@ -68,7 +68,7 @@
 		color: #00160A;
 		font-family: 'Ubuntu';
 		text-decoration: none;
-		font-size: 30px;
+		font-size: calc(24px + (30 - 24) * ((100vw - 300px) / (1440 - 300)));
 		font-weight: 700;
 	}
 
@@ -87,7 +87,7 @@
 		font-weight: 500;
 		border-color: #00160A;
 		border-radius: 30px;
-		padding: 0.5em 2em;
+		padding: 0.75em 2em;
 		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
 	}
 	
