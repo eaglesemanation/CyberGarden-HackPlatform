@@ -6,7 +6,7 @@
 	<nav>
 		<ul>
 			<li><a sveltekit:prefetch href="/">main</a></li>
-			<li><a sveltekit:prefetch href="/registration">registration</a></li>
+			<li><a sveltekit:prefetch href="/authorization">authorization</a></li>
 			<li><a sveltekit:prefetch href="/poster">Poster</a></li>
 			<li><a sveltekit:prefetch href="/eventRegistration">event registration</a></li>
 			<li><a sveltekit:prefetch href="/teaming">teaming</a></li>
