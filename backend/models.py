@@ -101,7 +101,7 @@ class Hackathon(Model):
     location_lon = fields.FloatField(null=True)
     location_lat = fields.FloatField(null=True)
     location: fields.ForeignKeyNullableRelation[Location] = fields.ForeignKeyField(
-        "models.Location", related_name="hackathons"
+        "models.Location", related_name="hackathons", null=True
     )
     sponsors: fields.ManyToManyRelation["Sponsor"] = fields.ManyToManyField(
         "models.Sponsor", related_name="hackathons"
