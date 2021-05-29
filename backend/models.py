@@ -39,7 +39,7 @@ class Participant(Model):
 class Captain(Model):
     id = fields.IntField(pk=True)
     user = fields.ForeignKeyField("models.User", related_name="as_captain")
-    teams: fields.ForeignKeyRelation["Team"]
+    team: fields.ReverseRelation["Team"]
 
 
 class Organizer(Model):
@@ -60,8 +60,11 @@ class Team(Model):
         "models.Participant"
     )
     invite_link = fields.CharField(max_length=64, unique=True)
-    capitan = fields.ForeignKeyField("models.Captain", related_name="teams")
+    capitan = fields.OneToOneField("models.Captain", related_name="team")
     hackathons: fields.ManyToManyRelation["Hackathon"]
+
+    async def team_size(self) -> int:
+        return len(await self.participants)
 
     def __repr__(self):
         return str(self.name)
@@ -115,6 +118,11 @@ class Hackathon(Model):
     organizers: fields.ManyToManyRelation[Organizer] = fields.ManyToManyField(
         "models.Organizer", related_name="hackathons"
     )
+
+    async def participants_amount(self) -> int:
+        teams = await self.teams
+        participants = sum([await team.team_size() for team in teams])
+        return participants + len(await self.organizers.all().values_list())
 
     def __repr__(self):
         return str(self.name)
