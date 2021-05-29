@@ -33,8 +33,8 @@
     <input bind:value={mail} placeholder="E-mail" type="email">
     <input bind:value={password} placeholder="Пароль" type="password">
     <div class="buttonsBox">
-        <button on:click={submit}>Вход</button>
-        <button><a sveltekit:prefetch href="/registration">Регистрация</a></button>
+        <button on:click={submit} class="auth-button">Вход</button>
+        <a sveltekit:prefetch href="/registration" class="reg-button">Регистрация</a>
     </div>
 </div>
 
@@ -62,6 +62,32 @@
         outline: none;
         border: 1px solid #43DFA8;
         box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
+    }
+
+    .buttonsBox {
+        margin: 1em;
+    }
+
+    .auth-button {
+        background-color: #00160A;
+		color: #fff;
+		font-family: 'Ubuntu';
+		font-weight: 500;
+		border-color: #00160A;
+		border-radius: 30px;
+		padding: 0.75em 2em;
+		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+    }
+
+    .reg-button {
+        background-color: transparent;
+		color: #00160A;
+		font-family: 'Ubuntu';
+		font-weight: 500;
+        border: 2px solid #00160A;
+		border-radius: 30px;
+		padding: 0.75em 2em;
+		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
     }
 
 </style>
