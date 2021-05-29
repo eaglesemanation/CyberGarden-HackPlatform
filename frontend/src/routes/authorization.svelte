@@ -42,7 +42,7 @@
     }
 
     userStatus.updateInfo("capitan"); //заглушка, получим с бека
-    window.location.replace("/poster"); //если все прошло успешно
+    //window.location.replace("/poster"); //если все прошло успешно
   }
 
 </script>

@@ -22,8 +22,11 @@ export async function sendForm(isLogin, username, password) {
   if (json_response.detail) {
     return isLogin ? "Неправильная почта или пароль" : "Такая почта уже используется"
   }
-  let {access_token, token_type, user_id} = json_response;
-  localStorage.setItem('token', access_token)
+  let {access_token, role, user_id} = json_response;
+  localStorage.setItem('token', access_token);
+  dataStore.set(json_response);
+  console.log(json_response);
+  console.log(get(dataStore));
 }
 
 
@@ -53,7 +56,7 @@ export function storeFetch(url, method, data=null) {
 
     const response = await fetch(url, request);
     const rsp = await response.json();
-    console.log(JSON.stringify(rsp))
+    console.log(JSON.stringify(rsp) + "3443")
     cache.set(url, rsp);
     store.set(Promise.resolve(rsp));
     dataStore.set(rsp);
