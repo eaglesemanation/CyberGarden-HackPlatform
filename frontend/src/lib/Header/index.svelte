@@ -8,7 +8,7 @@
 
     onMount(() => {
         Token = localStorage.getItem("token");
-		Status = localStorage.getItem("status");
+				Status = localStorage.getItem("status");
     })
 
 </script>
@@ -65,6 +65,10 @@
 		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
 		text-decoration: none;
 		transition: color 0.2s linear;
+		outline: none;
+	}
+	a:hover {
+		outline: none;
 	}
 
 	.logo-brand {

@@ -1,10 +1,27 @@
 import {writable, get} from 'svelte/store'
-import {userToken} from '$lib/_store'
+import cookie from 'cookie';
+
 export const apiUrl = 'https://b.cybergarden.hackmasters.tech/';
 export const selfUrl = 'https://cybergarden.hackmasters.tech/';
 
-export let user = writable("");
-
+function setCookie(name, value, options = {}) {
+  options = {
+    path: '/',
+    ...options
+  };
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
+  }
+  let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
+    }
+  }
+  document.cookie = updatedCookie;
+}
 
 export async function sendForm(isLogin, username, password) {
   let json_response = await fetch(
@@ -22,31 +39,33 @@ export async function sendForm(isLogin, username, password) {
   if (json_response.detail) {
     return isLogin ? "Неправильная почта или пароль" : "Такая почта уже используется"
   }
-  let {access_token, token_type, user_id} = json_response;
-  localStorage.setItem('token', access_token)
+  let {access_token, token_type, user_id, role} = json_response;
+
+  setCookie('token', access_token);
+  setCookie('role', role);
 }
 
 
 // API part
 export const cache = new Map();
 export let dataStore = writable({});
+
 // TODO добавить контроль над сроком действия токена
 
-export function storeFetch(url, method, data=null) {
-  const store = writable(new Promise(() => {}));
+export function storeFetch(url, method, data = null, token = null) {
+  const store = writable(new Promise(() => {
+  }));
   if (cache.has(url)) {
     store.set(Promise.resolve(cache.get(url)));
   }
   const load = async () => {
-    let token = localStorage.getItem('token')
-    console.log('Bearer ' + token)
-
     let request = {
-        method, 
-        headers: new Headers({
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + token,
-    })};
+      method,
+      headers: new Headers({
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + token,
+      })
+    };
     if (method !== 'get') {
       request.body = JSON.stringify(data)
     }

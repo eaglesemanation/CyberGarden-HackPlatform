@@ -1,10 +1,24 @@
+<script context="module">
+  import {storeFetch} from "$lib/api";
+
+  export async function load({session}) {
+    let {token, role} = session;
+    console.log(session);
+    if (!token || !role) {
+      return {redirect: "/authorization", status: 301}
+    }
+    let promise = storeFetch('https://b.cybergarden.hackmasters.tech/users/profile', 'get', {}, token);
+    return {}
+  }
+</script>
+
 <script>
   import {onMount} from "svelte";
-  import {storeFetch, user} from '$lib/_api.js';
-  import {userToken} from '$lib/_store.js';
+  // import {user} from '$lib/api.js';
   import {writable} from "svelte/store";
 
-  let promise = writable(new Promise(() => {}));
+  let promise = writable(new Promise(() => {
+  }));
   let state = true;
   let Token;
   let Status;
@@ -18,9 +32,8 @@
     education: "NUST MISiS"
   };
   onMount(async () => {
-    Token = localStorage.getItem("token");
-    Status = localStorage.getItem("status");
-    promise = storeFetch('https://b.cybergarden.hackmasters.tech/users/profile', 'get');
+    // Token = localStorage.getItem("token");
+    // Status = localStorage.getItem("status");
   })
 
   function funcOut() {
@@ -51,7 +64,6 @@
   <h1>Загрузка...</h1>
 {:then {fio, role, id}}
   <p>{$promise.role}</p>
-  <p>{$userToken}</p>
   <img src={accountInfo.avatar} alt="error">
   <h2>{accountInfo.fio}, {accountInfo.status}</h2>
   {#if state}
