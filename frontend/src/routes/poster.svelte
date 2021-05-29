@@ -121,6 +121,7 @@
 		margin-left: 10px;
 	}
 	.events-block {
+		flex-wrap: wrap;
 		display: flex;
 		align-self: center;
 	}

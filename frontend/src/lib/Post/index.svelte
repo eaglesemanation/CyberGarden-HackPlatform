@@ -37,7 +37,7 @@
         border: 3px solid #E1E3E6;
         box-sizing: border-box;
         border-radius: 30px;
-        width: 681px;
+        width: 650px;
         padding-top: 0;
         margin-left: 2%;
         margin-right: 2%;
@@ -88,4 +88,11 @@
 		padding: 0.75em 2em;
 		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
 	}
+    @media (max-width: 1300px) {
+        .postBox{
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 350px;
+        }
+    }
 </style>
