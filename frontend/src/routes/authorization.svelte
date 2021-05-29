@@ -26,15 +26,19 @@
         }
         return true;
     }
-    
+
 	async function submit() {
-        if (!validateForm()) return;
+        if (!validate()) return;
         showError = false;
-        let error = await sendForm(false, mail.value, password.value);
+        let error = await sendForm(true, mail.value, password.value);
         if (error) {
-            errorMessage = error;
+            alert(error);
             return;
         }
+
+        userToken.updateInfo("12:asd1:12w1e:1231"); //заглушка, получим с бека
+        userStatus.updateInfo("capitan"); //заглушка, получим с бека
+		window.location.replace("/"); //если все прошло успешно
 	}
 
 </script>
@@ -46,7 +50,6 @@
         <div class="authBox">
             <input bind:value={mail} placeholder="E-mail" type="email">
             <input bind:value={password} placeholder="Пароль" type="password">
-            <p class="error-label" class:showError>{errorMessage}</p>
             <div class="buttonsBox">
                 <button on:click={submit} class="auth-button">Вход</button>
                 <a sveltekit:prefetch href="/registration" class="reg-button">Регистрация</a>
