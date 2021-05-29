@@ -9,6 +9,7 @@
 
 <script>
   import {onMount} from "svelte";
+  import MainButton from '$lib/MainButton/index.svelte';
   import {sendForm} from "$lib/api";
   import {goto} from "$app/navigation";
 
@@ -45,7 +46,7 @@
 
     // userStatus.updateInfo("capitan"); //заглушка, получим с бека
     // window.location.replace("/poster"); //если все прошло успешно
-    goto("/poster"); //если все прошло успешно
+    goto("/events/poster"); //если все прошло успешно
   }
 
 </script>
@@ -62,8 +63,8 @@
         <h3>{errorMessage}</h3>
       {/if}
       <div class="buttonsBox">
-        <button on:click={submit} class="auth-button">Вход</button>
-        <a sveltekit:prefetch href="/registration" class="reg-button">Регистрация</a>
+        <MainButton on:click={submit} btntext="Вход"></MainButton>
+        <a sveltekit:prefetch href="/users/signup" class="reg-button">Регистрация</a>
       </div>
     </div>
   </div>
