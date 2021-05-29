@@ -59,7 +59,7 @@
 
 <div class="main-block">
   <!-- svelte-ignore a11y-missing-attribute -->
-  <img src="/static/reg.svg"/>
+  <img src="https://static.tildacdn.com/tild6362-3166-4430-b466-346266653936/reg.svg" alt="reg-photo" />
   <div class="reg-wrapper">
     <h1>Исследуй мир <span class="green">хакатонов</span></h1>
     <div class="regBox">

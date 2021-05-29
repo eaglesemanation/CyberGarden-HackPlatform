@@ -7,6 +7,7 @@
 </svelte:head>
 
 <div class="main">
+  <img src="https://static.tildacdn.com/tild6538-3737-4330-a466-613333346563/Done.svg" alt=""/>
   <div class="text">
     <h1 class="black">Garden<span class="green">Masters</span></h1>
     <h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
