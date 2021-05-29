@@ -64,3 +64,8 @@ async def update_single(id: int, new_hack: UpdatedHackathon, user=Depends(get_us
     hack.update_from_dict(new_hack.dict())
     await hack.save()
     return await PublicHackathon.from_tortoise_orm(hack)
+
+
+@router.post('/enter')
+async def enter_hackathon():
+    ...
