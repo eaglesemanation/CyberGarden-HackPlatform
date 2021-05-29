@@ -31,7 +31,6 @@ app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(hacks.router, prefix='/hacks', tags=["Hacks"])
 app.include_router(teams.router, prefix='/teams', tags=["Teams"])
 
-db_url = os.getenv("DB_URL")
 
 try:
     shutil.rmtree(
@@ -46,6 +45,10 @@ for path in ["db/test"]:
     Path(path).mkdir(parents=True, exist_ok=True)
 
 config_var = PROD_TORTOISE_ORM
+# config_var = TEST_TORTOISE_ORM
+
+for path in ['db/test', 'db/prod']:
+    Path(path).mkdir(parents=True, exist_ok=True)
 
 
 @app.on_event("startup")

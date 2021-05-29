@@ -3,7 +3,7 @@ from enum import Enum
 from tortoise import Model, Tortoise, fields
 
 
-class UserType(str, Enum):
+class UserRole(str, Enum):
     PARTICIPANT = "participant"
     CAPTAIN = "captain"
     ORGANIZER = "organizer"
@@ -15,7 +15,7 @@ class User(Model):
     email = fields.CharField(max_length=128, unique=True)
     hashed_password = fields.CharField(max_length=512)
     fio = fields.CharField(null=True, max_length=128)
-    type = fields.CharEnumField(UserType, default=UserType.PARTICIPANT)
+    role = fields.CharEnumField(UserRole, default=UserRole.PARTICIPANT)
     avatar = fields.CharField(max_length=128, null=True)
 
     as_participant: fields.ReverseRelation["Participant"]
@@ -59,8 +59,8 @@ class Team(Model):
     participants: fields.ManyToManyRelation[Participant] = fields.ManyToManyField(
         "models.Participant"
     )
-    invite_link = fields.CharField(max_length=64, unique=True, allows_generated=True)
-    capitan = fields.ForeignKeyField("models.Captain", related_name="")
+    invite_link = fields.CharField(max_length=64, unique=True)
+    capitan = fields.ForeignKeyField("models.Captain", related_name="teams")
     hackathons: fields.ManyToManyRelation["Hackathon"]
 
     def __repr__(self):
@@ -86,7 +86,8 @@ class Hackathon(Model):
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=128)
     description = fields.TextField()
-    start_date = fields.DatetimeField()
+    start_date = fields.DateField()
+    end_date = fields.DateField()
     #: Hackathon website url
     image = fields.CharField(max_length=128, null=True)
     url = fields.CharField(max_length=128, null=True)

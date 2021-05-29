@@ -5,7 +5,7 @@ from typing import Any, List, Optional, Union
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from models import Participant, User, UserType, Organizer, Captain
+from models import Participant, User, UserRole, Organizer, Captain
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from tortoise.contrib.pydantic import pydantic_model_creator
@@ -29,14 +29,15 @@ PublicUser = pydantic_model_creator(
     User, name="PublicUser", exclude=excluded, include=included
 )
 PrivateUser = pydantic_model_creator(
-    User, name="PrivateUser", exclude=excluded, include=included
+    User, name="PrivateUser", include=("fio", "email", "type")
 )
 
 
-class Token(BaseModel):
+class TokenAndRole(BaseModel):
     access_token: str
     token_type: str
     user_id: int
+    role: str
 
 
 class PublicHash(BaseModel):
@@ -65,7 +66,6 @@ async def get_user(token: str = Depends(oauth2_scheme)) -> User:
     )
 
     try:
-        print(ALGORITHM)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:
@@ -80,7 +80,7 @@ async def get_user(token: str = Depends(oauth2_scheme)) -> User:
 
 
 async def get_admin(user: User = Depends(get_user)):
-    if user.type == UserType.ADMIN:
+    if user.type == UserRole.ADMIN:
         return user.as_admin
     raise HTTPException(status_code=403, detail="Forbidden")
 
@@ -106,7 +106,7 @@ async def create_user_and_token(email: str, password: str):
     return user, create_access_token(data={"sub": user.email}, expires_data=expires)
 
 
-@router.post("/token", response_model=Token)
+@router.post("/token", response_model=TokenAndRole)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = await authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -117,16 +117,16 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
     expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub": user.email}, expires_data=expires)
-    return Token(access_token=access_token, token_type="bearer", user_id=user.id)
+    return TokenAndRole(access_token=access_token, token_type="bearer", user_id=user.id, role=user.role)
 
 
-@router.post("/create", response_model=Token)
+@router.post("/create", response_model=TokenAndRole)
 async def new_user(form_data: OAuth2PasswordRequestForm = Depends()):
     user = await User.get_or_none(email=form_data.username)
     if user is not None:
         raise HTTPException(400, "User already exists")
     user, token = await create_user_and_token(form_data.username, form_data.password)
-    return Token(access_token=token, token_type="bearer", user_id=user.id)
+    return TokenAndRole(access_token=token, token_type="bearer", user_id=user.id, role=user.role)
 
 
 @router.get("/profile", response_model=PrivateUser)
@@ -153,14 +153,14 @@ async def destroy(user=Depends(get_user)):
     return {"ok": True}
 
 
+@router.get("/all")
+async def all_users():
+    return await PrivateUser.from_queryset(User.all())
+
+
 @router.get("/{user_id}", response_model=PublicUser)
 async def user_by_id(user_id: int):
     user = await User.get_or_none(id=user_id)
     if user:
         return await PublicUser.from_tortoise_orm(user)
     raise HTTPException(404, "User not found")
-
-
-@router.get("/all")
-async def all_users():
-    return await PrivateUser.from_queryset(User.all())
