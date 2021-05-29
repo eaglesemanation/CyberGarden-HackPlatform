@@ -91,6 +91,12 @@ async def get_capitan(user: User = Depends(get_user)):
     raise HTTPException(status_code=403, detail="Forbidden")
 
 
+async def get_participant(user: User = Depends(get_user)):
+    if user.role in [UserRole.PARTICIPANT, UserRole.CAPTAIN]:
+        return user
+    raise HTTPException(status_code=403, detail="Forbidden")
+
+
 async def get_admin(user: User = Depends(get_user)):
     if user.role == UserRole.ADMIN:
         return user

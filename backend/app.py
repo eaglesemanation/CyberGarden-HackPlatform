@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 
-import os
 import shutil
 from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
-from settings import PROD_TORTOISE_ORM, TEST_TORTOISE_ORM
 from tortoise import Tortoise
-# from backend.tools.db import fill_db
+
+from crud import hacks, locations, participants, teams, users
+from settings import PROD_TORTOISE_ORM
 from tools.db import fill_db
-from crud import users, hacks, teams, locations
+
+# from backend.tools.db import fill_db
 
 
 app = FastAPI(
