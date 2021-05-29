@@ -25,10 +25,16 @@
         return true;
     }
 
-	function submit(){
+	async function submit(){
 		console.log("start");
         if(!validate()) return;
         //тута запрос к серверу
+		showError = false;
+        let error = await sendForm(false, mail.value, password.value);
+        if (error) {
+            alert(error);
+            return;
+        }
 		console.log("end");
 	}
 </script>

@@ -1,15 +1,21 @@
 from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import List
+from datetime import date
 from models import Hackathon, User
 from crud.users import get_user
 from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
 
 router = APIRouter()
 
-NewHackathon = pydantic_model_creator(
-    Hackathon, include=('name', 'description', 'start_date')
-)
+
+class NewHackathon(BaseModel):
+    name: str
+    description: str
+    start_date: date = Field(default='2021-05-29')
+    end_date: date = Field(default='2021-05-29')
+
+
 PublicHackathon = pydantic_model_creator(
     Hackathon, exclude=('organizers', 'teams')
 )
