@@ -142,6 +142,14 @@
     .main-block {
       flex-direction: column;
     }
+
+    .auth-wrapper {
+      margin-left: 0;
+    }
+
+    h1 {
+      text-align: center;
+    }
   }
 
 </style>
