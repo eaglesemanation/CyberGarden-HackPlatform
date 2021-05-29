@@ -8,7 +8,6 @@
 </svelte:head>
 
 <div class="main">
-	<img src="./static/forMain.svg" />
 	<div class="text">
 		<h1 class="black">Garden<span class="green">Masters</span></h1>
 		<h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
