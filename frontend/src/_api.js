@@ -7,9 +7,9 @@ export const selfUrl = 'https://cybergarden.hackmasters.tech/';
 export let user = writable("");
 
 
-export async function sendForm(username, password) {
+export async function sendForm(isLogin, username, password) {
   let json_response = await fetch(
-    apiUrl + (login ? 'users/token' : 'users/create'),
+    apiUrl + (isLogin ? 'users/token' : 'users/create'),
     {
       method: 'POST',
       credentials: 'omit',
@@ -21,7 +21,7 @@ export async function sendForm(username, password) {
     },
   ).then(res => res.json());
   if (json_response.detail) {
-    return login ? "Неправильная почта или пароль" : "Такая почта уже используется"
+    return isLogin ? "Неправильная почта или пароль" : "Такая почта уже используется"
   }
   let {access_token, token_type, user_id} = json_response;
   setCookie('access_token', access_token, {samesite: 'lax'});
