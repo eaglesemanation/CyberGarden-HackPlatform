@@ -18,11 +18,11 @@
     
     function validate(){
         if(mail === "") {
-            alert("Введите mail")
+            errorMessage = "Введите e-mail";
             return false;   
         }
         if(password === "") {
-            alert("Введите пароль")
+            errorMessage = "Введите пароль";
             return false;
         }
         return true;
@@ -37,12 +37,12 @@
         showError = false;
         let error = await sendForm(true, mail.value, password.value);
         if (error) {
-            alert(error);
+            errorMessage = error;
             return;
         }
 
         userStatus.updateInfo("capitan"); //заглушка, получим с бека
-		// window.location.replace("/poster"); //если все прошло успешно
+		window.location.replace("/poster"); //если все прошло успешно
 	}
 
 </script>
@@ -54,6 +54,9 @@
         <div class="authBox">
             <input bind:value={mail} placeholder="E-mail" type="email">
             <input bind:value={password} placeholder="Пароль" type="password">
+            {#if (errorMessage != null)}
+                <h3>{errorMessage}</h3>
+            {/if}
             <div class="buttonsBox">
                 <button on:click={submit} class="auth-button">Вход</button>
                 <a sveltekit:prefetch href="/registration" class="reg-button">Регистрация</a>
@@ -92,6 +95,13 @@
         font-family: 'Ubuntu';
         font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1440 - 300)));
 		font-weight: 700;
+    }
+
+    h3 {
+        font-family: 'Ubuntu';
+        color: #E84855;
+        font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+        font-weight: 500;
     }
 
     .green {

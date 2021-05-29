@@ -10,19 +10,19 @@
 
 	function validate(){
         if(mail === "") {
-            alert("Введите mail")
+            errorMessage = "Введите e-mail";
             return false;
         }
         if(password1 === "") {
-            alert("Введите пароль")
+            errorMessage = "Введите пароль";
             return false;
         }
 		if(password2 === "") {
-            alert("Введите пароль для подтверждения")
+            errorMessage = "Введите пароль для подтверждения";
             return false;
         }
 		if(password1 !== password2) {
-            alert("Пароли не совпадают")
+            errorMessage = "Пароли не совпадают";
 			password1 = "";
 			password2 = "";
             return false;
@@ -39,7 +39,7 @@
 		showError = false;
         let error = await sendForm(false, mail.value, password1.value);
         if (error) {
-            alert(error);
+            errorMessage = error;
             return;
         }
 
@@ -49,6 +49,7 @@
 </script>
 
 <div class="main-block">
+	<!-- svelte-ignore a11y-missing-attribute -->
 	<img src="./static/reg.svg" />
 	<div class="reg-wrapper">
 		<h1>Исследуй мир <span class="green">хакатонов</span></h1>
@@ -56,6 +57,9 @@
 			<input bind:value={mail} placeholder="E-mail" type="email">
 			<input bind:value={password1} placeholder="Пароль" type="password">
 			<input bind:value={password2} placeholder="Подтверждение пароля" type="password">
+            {#if (errorMessage != null)}
+                <h3>{errorMessage}</h3>
+            {/if}
 			<button on:click={submit} class="main-button">Зарегистрироваться</button>
 		</div>
 	</div>
@@ -81,6 +85,13 @@
         font-family: 'Ubuntu';
         font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1440 - 300)));
 		font-weight: 700;
+    }
+
+    h3 {
+        font-family: 'Ubuntu';
+        color: #E84855;
+        font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+        font-weight: 500;
     }
 
     .green {
