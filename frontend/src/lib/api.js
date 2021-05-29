@@ -32,7 +32,7 @@ export function setCookie(name, value, options = {}) {
 
 export async function sendForm(isLogin, username, password) {
   let json_response = await fetch(
-    apiUrl + (isLogin ? 'users/token' : 'users/create'),
+    apiUrl + (isLogin ? '/users/token' : '/users/create'),
     {
       method: 'POST',
       credentials: 'omit',
