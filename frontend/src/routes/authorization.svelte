@@ -34,15 +34,15 @@
         if (!validate()) return;
 
         // отправка запроса на авторизацию
-        showError = false;
-        let error = await sendForm(true, mail.value, password.value);
-        if (error) {
-            alert(error);
-            return;
-        }
+        // showError = false;
+        // let error = await sendForm(true, mail.value, password.value);
+        // if (error) {
+        //     alert(error);
+        //     return;
+        // }
 
         userStatus.updateInfo("capitan"); //заглушка, получим с бека
-		// window.location.replace("/poster"); //если все прошло успешно
+		window.location.replace("/poster"); //если все прошло успешно
 	}
 
 </script>
