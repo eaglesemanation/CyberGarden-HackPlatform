@@ -1,18 +1,20 @@
-FROM mhart/alpine-node:12 as build
+FROM node:14-buster-slim as build
 
 # install dependencies
 WORKDIR /app
 COPY package.json ./
+RUN npm install
+# Svelte is useless piece of bleeding edge garbage
+RUN npm install '@sveltejs/kit@1.0.0-next.110'
 # Copy all local files into the image.
 COPY . .
-RUN npm install
 RUN npm run build
 
 ###
 # Only copy over the Node pieces we need
 # ~> Saves 35MB
 ###
-FROM mhart/alpine-node:slim-12 as public
+FROM node:14-buster-slim as public
 
 WORKDIR /app
 COPY --from=build /app .
