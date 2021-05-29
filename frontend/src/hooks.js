@@ -1,6 +1,5 @@
 import cookie from 'cookie';
 import {v4 as uuid} from '@lukeed/uuid';
-import {defaultSession} from "$lib/stores";
 
 
 export const handle = async ({request, render}) => {
