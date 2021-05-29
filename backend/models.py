@@ -77,9 +77,16 @@ class Sponsor(Model):
 
 class HackathonTag(Model):
     """Tags to identify type of hackathon, for example: Web, VR, AR, etc"""
+
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=128)
     hackathons: fields.ManyToManyRelation["Hackathon"]
+
+
+class Location(Model):
+    id = fields.IntField(pk=True)
+    city = fields.CharField(max_length=128, null=True)
+    hackathon: fields.ForeignKeyRelation["Hackathon"]
 
 
 class Hackathon(Model):
@@ -93,6 +100,9 @@ class Hackathon(Model):
     url = fields.CharField(max_length=128, null=True)
     location_lon = fields.FloatField(null=True)
     location_lat = fields.FloatField(null=True)
+    location: fields.ForeignKeyNullableRelation[Location] = fields.ForeignKeyField(
+        "models.Location", related_name="hackathons"
+    )
     sponsors: fields.ManyToManyRelation["Sponsor"] = fields.ManyToManyField(
         "models.Sponsor", related_name="hackathons"
     )
