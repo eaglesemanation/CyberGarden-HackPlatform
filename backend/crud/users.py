@@ -9,10 +9,7 @@ from models import Participant, User, UserType, Organizer, Captain
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from tortoise.contrib.pydantic import pydantic_model_creator
-
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-ALGORITHM = os.getenv("ALGORITHM")
-SECRET_KEY = os.getenv("SECRET_KEY")
+from settings import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -68,6 +65,7 @@ async def get_user(token: str = Depends(oauth2_scheme)) -> User:
     )
 
     try:
+        print(ALGORITHM)
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username: str = payload.get("sub")
         if username is None:

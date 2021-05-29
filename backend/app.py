@@ -5,14 +5,13 @@ import shutil
 from pathlib import Path
 
 import uvicorn
-from dotenv import load_dotenv
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from settings import PROD_TORTOISE_ORM, TEST_TORTOISE_ORM
 from tortoise import Tortoise
-
+# from tools.db import fill_db
 from crud import users, hacks, teams
 
-load_dotenv()
 
 app = FastAPI(
     version="0.0.2",
@@ -33,15 +32,6 @@ app.include_router(hacks.router, prefix='/hacks', tags=["Hacks"])
 app.include_router(teams.router, prefix='/teams', tags=["Teams"])
 
 db_url = os.getenv("DB_URL")
-config_var = {
-    "connections": {"default": db_url},
-    "apps": {
-        "models": {
-            "models": ["models"],
-            "default_connection": "default",
-        },
-    },
-}
 
 try:
     shutil.rmtree(
@@ -55,11 +45,14 @@ except FileNotFoundError:
 for path in ["db/test"]:
     Path(path).mkdir(parents=True, exist_ok=True)
 
+config_var = PROD_TORTOISE_ORM
+
 
 @app.on_event("startup")
 async def startup():
     await Tortoise.init(config=config_var)
     await Tortoise.generate_schemas(safe=True)
+    # await fill_db()
 
 
 @app.on_event('shutdown')
