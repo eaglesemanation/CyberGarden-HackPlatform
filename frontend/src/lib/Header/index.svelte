@@ -1,114 +1,115 @@
 <script>
+  import {page} from '$app/stores';
+  import {onMount} from "svelte";
 
-	import { page } from '$app/stores';
-	import { onMount } from "svelte";
+  let Token;
+  let Status;
 
-	let Token;
-	let Status;
+  onMount(() => {
+    Token = localStorage.getItem("token");
+    Status = localStorage.getItem("status");
+  })
 
-    onMount(() => {
-        Token = localStorage.getItem("token");
-				Status = localStorage.getItem("status");
-    })
-
-	function funcOut() {
-		localStorage.clear();
-		window.location.replace("/");
-	}
+  function funcOut() {
+    localStorage.clear();
+    window.location.replace("/");
+  }
 
 </script>
 
 <header>
-	<div class="header-left"><a sveltekit:prefetch href="/" class="logo-brand">Garden<span class="green">Masters</span></a></div>
-    <div class="header-center">
-        <ul>
-            <li><a sveltekit:prefetch href="/poster">Афиша</a></li>
-			<li><a sveltekit:prefetch href="/account">Профиль</a></li>
-			{#if (Status==="organizer")||(Status==="admin")}
-				<li><a sveltekit:prefetch href="/eventRegistration">Новое мероприятие</a></li>
-			{:else if (Status==="participant")||(Status==="capitan")}
-				<li><a sveltekit:prefetch href="/teaming">Команда</a></li>
-			{/if}
-        </ul>
-    </div>
-	{#if Token === null}
-    	<a sveltekit:prefetch href="/authorization" class="main-button">Авторизация</a>
-	{:else}
-		<button on:click={funcOut} class="main-button">Выход</button>
-	{/if}
+  <div class="header-left"><a sveltekit:prefetch href="/" class="logo-brand">Garden<span
+      class="green">Masters</span></a></div>
+  <div class="header-center">
+    <ul>
+      <li><a sveltekit:prefetch href="/events/poster">Афиша</a></li>
+      <li><a sveltekit:prefetch href="/users/self">Профиль</a></li>
+      {#if (Status === "organizer") || (Status === "admin")}
+        <li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
+      {:else if (Status === "participant") || (Status === "capitan")}
+        <li><a sveltekit:prefetch href="/teams/self">Команда</a></li>
+      {/if}
+    </ul>
+  </div>
+  {#if Token === null}
+    <a sveltekit:prefetch href="/users/self" class="main-button">Авторизация</a>
+  {:else}
+    <button on:click={funcOut} class="main-button">Выход</button>
+  {/if}
 </header>
 
 <style>
 
-	header {
-		display: flex; 
-		justify-content: space-between;
-		align-items: center;
-		padding: 1em;
-	}
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+  }
 
-	ul {
-		position: relative;
-		padding: 0;
-		margin: 0;
-		height: 3em;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		list-style: none;
-		background: var(--background);
-		background-size: contain;
-	}
+  ul {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    height: 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    background: var(--background);
+    background-size: contain;
+  }
 
-	a {
-		font-family: 'Ubuntu';
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding-right: 1em;
-		color: var(--heading-color);
-		font-weight: 500;
-		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
-		text-decoration: none;
-		transition: color 0.2s linear;
-		outline: none;
-	}
-	a:hover {
-		outline: none;
-	}
+  a {
+    font-family: 'Ubuntu';
+    display: flex;
+    height: 100%;
+    align-items: center;
+    padding-right: 1em;
+    color: var(--heading-color);
+    font-weight: 500;
+    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+    text-decoration: none;
+    transition: color 0.2s linear;
+    outline: none;
+  }
 
-	.logo-brand {
-		color: #00160A;
-		font-family: 'Ubuntu';
-		text-decoration: none;
-		font-size: calc(24px + (30 - 24) * ((100vw - 300px) / (1440 - 300)));
-		font-weight: 700;
-	}
+  a:hover {
+    outline: none;
+  }
 
-	.logo-brand:hover {
-		color: #00160A;
-	}
+  .logo-brand {
+    color: #00160A;
+    font-family: 'Ubuntu';
+    text-decoration: none;
+    font-size: calc(24px + (30 - 24) * ((100vw - 300px) / (1440 - 300)));
+    font-weight: 700;
+  }
 
-	.green {
-		color: #43DFA8;
-	}
+  .logo-brand:hover {
+    color: #00160A;
+  }
 
-	.main-button {
-		background-color: #00160A;
-		color: #fff;
-		font-family: 'Ubuntu';
-		font-weight: 500;
-		border-color: #00160A;
-		border-radius: 30px;
-		padding: 0.75em 2em;
-		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
-	}
-	
-	@media (max-width: 1000px){
-   		header	{
-			flex-direction: column;
-			align-items: flex-start;
-    	}
-	}
+  .green {
+    color: #43DFA8;
+  }
+
+  .main-button {
+    background-color: #00160A;
+    color: #fff;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    border-color: #00160A;
+    border-radius: 30px;
+    padding: 0.75em 2em;
+    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+  }
+
+  @media (max-width: 1000px) {
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
 
 </style>
