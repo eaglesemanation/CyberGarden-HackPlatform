@@ -26,13 +26,13 @@
         }
         return true;
     }
-    
+
 	async function submit() {
-        if (!validateForm()) return;
+        if (!validate()) return;
         showError = false;
-        let error = await sendForm(false, mail.value, password.value);
+        let error = await sendForm(true, mail.value, password.value);
         if (error) {
-            errorMessage = error;
+            alert(error);
             return;
         }
 	}
