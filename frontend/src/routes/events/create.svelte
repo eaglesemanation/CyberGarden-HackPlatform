@@ -32,10 +32,11 @@
 </svelte:head>
 
 <div class="main-block">
-  <h1>event registration</h1>
+  <h1>Создать <span class="green">мероприятие</span></h1>
   <div class="input-wrapper">
     <input bind:value={name} type="text" placeholder="name">
-    <label>Дата <span class="green">начала</span> хакатона</label>
+    <!-- svelte-ignore a11y-label-has-associated-control -->
+    <label>Дата начала хакатона</label>
     <input bind:value={date} type="date" placeholder="Время начала хакатона">
     <input bind:value={date} type="date" placeholder="Время окончания хакатона">
     <textarea class="description" bind:value={description} placeholder="Описание"></textarea>
@@ -47,6 +48,11 @@
 
 <style>
 
+  h1 {
+    font-size: 'Ubuntu';
+    font-weight: 700;
+  }
+
   .main-block {
     display: flex;
     align-items: center;
@@ -57,9 +63,20 @@
     margin: 1em;
   }
 
+  label {
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    margin-bottom: 3%;
+    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+  }
+
   .input-wrapper {
     display: flex;
     flex-direction: column;
+  }
+
+  .green {
+    color: #43DFA8;
   }
 
   input {
