@@ -1,7 +1,7 @@
 <script>
-    
+
     import { onMount } from "svelte";
-    import {sendForm} from "../_api.js";
+    import {sendForm} from "$lib/_api";
     import {userToken, userStatus } from '$lib/_store';
 
 	let mail = "";
@@ -43,7 +43,7 @@
 
         userToken.updateInfo("12:asd1:12w1e:1231"); //заглушка, получим с бека
         userStatus.updateInfo("capitan"); //заглушка, получим с бека
-		window.location.replace("/poster"); //если все прошло успешно
+		// window.location.replace("/poster"); //если все прошло успешно
 	}
 
 </script>

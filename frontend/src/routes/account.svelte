@@ -1,5 +1,9 @@
 <script>
 	import { onMount } from "svelte";
+	import { storeFetch, user } from '$lib/_api.js';
+	import { userToken } from '$lib/_store.js';
+
+	const promise = storeFetch('https://b.cybergarden.hackmasters.tech/users/profile');
 
 	let state = true;
 	let Token;
@@ -38,22 +42,27 @@
 	<title>account</title>
 </svelte:head>
 
-<img src={accountInfo.avatar} alt="error">
-<h2>{accountInfo.fio}, {accountInfo.status}</h2>
-{#if state}
-	<h3>Skills: {accountInfo.skills}</h3>
-	<h3>Role in the team: {accountInfo.role}</h3>
-	<h3>Education: {accountInfo.education}</h3>
-	<button on:click={funcEdit}>edit</button>
-{:else}
-	<div class="inputs">
-		<input bind:value={accountInfo.skills} type="text" placeholder="Skills">
-		<input bind:value={accountInfo.role} type="text" placeholder="Role in the team">
-		<input bind:value={accountInfo.education} type="text" placeholder="Education">		
-	</div>
-	<button on:click={funcSave}>save</button>
-{/if}
-
+{#await $promise}
+	<h1>Загрузка...</h1>
+{:then {fio, role, id}}
+	<p>{$promise.id}</p>
+	<p>{$userToken}</p>
+	<img src={accountInfo.avatar} alt="error">
+	<h2>{accountInfo.fio}, {accountInfo.status}</h2>
+	{#if state}
+		<h3>Skills: {accountInfo.skills}</h3>
+		<h3>Role in the team: {accountInfo.role}</h3>
+		<h3>Education: {accountInfo.education}</h3>
+		<button on:click={funcEdit}>edit</button>
+	{:else}
+		<div class="inputs">
+			<input bind:value={accountInfo.skills} type="text" placeholder="Skills">
+			<input bind:value={accountInfo.role} type="text" placeholder="Role in the team">
+			<input bind:value={accountInfo.education} type="text" placeholder="Education">		
+		</div>
+		<button on:click={funcSave}>save</button>
+	{/if}
+{/await}
 
 
 
