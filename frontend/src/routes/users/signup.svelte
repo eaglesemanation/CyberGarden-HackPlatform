@@ -59,7 +59,7 @@
 
 <div class="main-block">
   <!-- svelte-ignore a11y-missing-attribute -->
-  <img src="./static/reg.svg"/>
+  <img src="/static/reg.svg"/>
   <div class="reg-wrapper">
     <h1>Исследуй мир <span class="green">хакатонов</span></h1>
     <div class="regBox">
