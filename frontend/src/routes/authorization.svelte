@@ -42,12 +42,13 @@
     }
 
     userStatus.updateInfo("capitan"); //заглушка, получим с бека
-    //window.location.replace("/poster"); //если все прошло успешно
+    window.location.replace("/poster"); //если все прошло успешно
   }
 
 </script>
 
 <div class="main-block">
+  <!-- svelte-ignore a11y-missing-attribute -->
   <img src="./static/space.svg"/>
   <div class="auth-wrapper">
     <h1>Зайти в <span class="green">пространство</span></h1>

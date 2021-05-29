@@ -23,11 +23,6 @@
     promise = storeFetch('https://b.cybergarden.hackmasters.tech/users/profile', 'get');
   })
 
-  function funcOut() {
-    localStorage.clear();
-    window.location.replace("/");
-  }
-
   function funcDelete() {
     if (confirm("exactly?")) {
       alert("Deleting...")
@@ -69,7 +64,6 @@
         <input bind:value={accountInfo.education} type="text" placeholder="Education">
       </div>
       <button on:click={funcSave}>save</button>
-      <button on:click={funcOut}>OUT</button>
       <button on:click={funcDelete}>DELETE ACCOUNT</button>
     {/if}
   {/await}

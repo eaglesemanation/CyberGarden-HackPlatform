@@ -11,6 +11,11 @@
 		Status = localStorage.getItem("status");
     })
 
+	function funcOut() {
+		localStorage.clear();
+		window.location.replace("/");
+	}
+
 </script>
 
 <header>
@@ -18,6 +23,7 @@
     <div class="header-center">
         <ul>
             <li><a sveltekit:prefetch href="/poster">Афиша</a></li>
+			<li><a sveltekit:prefetch href="/account">Профиль</a></li>
 			{#if (Status==="organizer")||(Status==="admin")}
 				<li><a sveltekit:prefetch href="/eventRegistration">Новое мероприятие</a></li>
 			{:else if (Status==="participant")||(Status==="capitan")}
@@ -28,7 +34,7 @@
 	{#if Token === null}
     	<a sveltekit:prefetch href="/authorization" class="main-button">Авторизация</a>
 	{:else}
-		<a sveltekit:prefetch href="/account" class="main-button">Профиль</a>
+		<button on:click={funcOut} class="main-button">Выход</button>
 	{/if}
 </header>
 
