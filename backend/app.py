@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from settings import PROD_TORTOISE_ORM, TEST_TORTOISE_ORM
 from tortoise import Tortoise
+# from backend.tools.db import fill_db
 from tools.db import fill_db
 from crud import users, hacks, teams, locations
 

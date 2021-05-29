@@ -2,16 +2,15 @@
 	export const prerender = true;
 </script>
 
-
 <svelte:head>
-	<title>Main</title>
+	<title>Главная</title>
 </svelte:head>
 
 <div class="main">
 	<div class="text">
 		<h1 class="black">Garden<span class="green">Masters</span></h1>
 		<h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
-		<a class="main-button">Что за чуто инструмент?</a>
+		<a href="/" class="main-button">Что за чудо инструмент?</a>
 	</div>
 </div>
 
