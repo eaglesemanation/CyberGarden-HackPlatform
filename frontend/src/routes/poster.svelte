@@ -23,27 +23,39 @@
 	let postsMass = postsMassFronServer;//его строем после поиска 
 
 	function funcSearch(){
-		alert(selectedCity);
 		postsMass = [].concat();
 		if(searchLine==="" && selectedCity===""){
 			postsMass = postsMassFronServer.concat();
 			return;
 		} else if (selectedCity!==""){
 			postsMassFronServer.forEach(element => {
-			console.log(element.name);
-			let hackCity = element.location.toLowerCase(); 
-			if(hackCity.indexOf(selectedCity.toLowerCase()) !== -1){
-				postsMass = postsMass.concat(element);
+				console.log(element.name);
+				let hackCity = element.location.toLowerCase(); 
+				if(hackCity.indexOf(selectedCity.toLowerCase()) !== -1){
+					postsMass = postsMass.concat(element);
+				}
+			});
+			if(searchLine!==""){
+				postsMass = [].concat();
+				postsMassFronServer.forEach(element => {
+				console.log(element.name);
+				let hackCity = element.location.toLowerCase(); 
+				let hackName = element.name.toLowerCase(); 
+				if((hackName.indexOf(searchLine.toLowerCase()) !== -1)&&(hackCity.indexOf(selectedCity.toLowerCase())!== -1)){
+					postsMass = postsMass.concat(element);
+				}	
+			});	
 			}
-		});	
-		} else 
-		postsMassFronServer.forEach(element => {
-			console.log(element.name);
-			let hackName = element.name.toLowerCase(); 
-			if(hackName.indexOf(searchLine.toLowerCase()) !== -1){
-				postsMass = postsMass.concat(element);
-			}
-		});	
+		} else {
+			postsMassFronServer.forEach(element => {
+				console.log(element.name);
+				let hackName = element.name.toLowerCase(); 
+				if(hackName.indexOf(searchLine.toLowerCase()) !== -1){
+					postsMass = postsMass.concat(element);
+				}	
+			});	
+		}
+		
 	}
 	function handleKeydown(event) {
 		if(event.key === "Enter"){
