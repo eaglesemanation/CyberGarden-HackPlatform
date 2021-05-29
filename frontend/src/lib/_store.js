@@ -32,3 +32,4 @@ function createStatus() {
 
 export const userToken = createToken();
 export const userStatus = createStatus();
+export const testStore = writable(null);

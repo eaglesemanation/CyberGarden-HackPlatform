@@ -23,9 +23,7 @@ export async function sendForm(isLogin, username, password) {
     return isLogin ? "Неправильная почта или пароль" : "Такая почта уже используется"
   }
   let {access_token, token_type, user_id} = json_response;
-  console.log(access_token);
-  userToken.updateInfo(access_token);
-
+  // localStorage.setItem('token', access_token)
 }
 
 
