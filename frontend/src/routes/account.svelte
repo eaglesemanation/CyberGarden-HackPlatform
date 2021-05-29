@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from "svelte";
+	import { getCookie, getData, dataStore, authorizedRequest } from '../../../_api.js';
+	
 	let state = true;
 	let Token;
 	let Status;
