@@ -15,11 +15,10 @@
   let name = "";
   let description = "";
 
-  let date = "";
+  let date1;
+  let date2;
   let organizer = [];
   let sponsor = [];
-  let location_lon = 0.0;
-  let location_lat = 0.0;
 
   function create() {
     fetches.post()
@@ -34,11 +33,12 @@
 <div class="main-block">
   <h1>Создать <span class="green">мероприятие</span></h1>
   <div class="input-wrapper">
-    <input bind:value={name} type="text" placeholder="name">
+    <input bind:value={name} type="text" placeholder="Название">
     <!-- svelte-ignore a11y-label-has-associated-control -->
-    <label>Дата начала хакатона</label>
-    <input bind:value={date} type="date" placeholder="Время начала хакатона">
-    <input bind:value={date} type="date" placeholder="Время окончания хакатона">
+    <label>Дата начала хакатона:</label>
+    <input bind:value={date1} type="date" placeholder="Дата начала хакатона">
+    <label>Дата окончания хакатона:</label>
+    <input bind:value={date2} type="date" placeholder="Дата окончания хакатона">
     <textarea class="description" bind:value={description} placeholder="Описание"></textarea>
     <input bind:value={sponsor} type="text" placeholder="Спонсоры">
     <input bind:value={organizer} type="text" placeholder="Организаторы">
@@ -50,6 +50,7 @@
 
   h1 {
     font-size: 'Ubuntu';
+    font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1440 - 300)));
     font-weight: 700;
   }
 
@@ -67,6 +68,7 @@
     font-family: 'Ubuntu';
     font-weight: 400;
     margin-bottom: 3%;
+    margin-left: 2em;
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
 
@@ -102,6 +104,16 @@
     border: 1px solid #E1E3E6;
     font-family: 'Ubuntu';
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+  }
+
+  input[type="date"] {
+    color: #757575;
+  }
+
+  input[type="date"]:focus {
+    outline: none;
+    border: 1px solid #43DFA8;
+    box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
   }
 
   textarea:focus {
