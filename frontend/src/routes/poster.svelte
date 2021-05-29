@@ -4,7 +4,7 @@
 	let searchLine = "";
 	let selectedCity = "";
 	const cityMass = [
-		 "Таганрог", "Луна", "Москва"
+		 "All", "Таганрог", "Луна", "Москва"
 	]
 	const postsMassFronServer = [
 		{
@@ -24,6 +24,7 @@
 
 	function funcSearch(){
 		postsMass = [].concat();
+		if(selectedCity==="All")selectedCity="";
 		if(searchLine==="" && selectedCity===""){
 			postsMass = postsMassFronServer.concat();
 			return;
