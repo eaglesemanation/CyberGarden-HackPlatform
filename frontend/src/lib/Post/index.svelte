@@ -21,7 +21,6 @@
 </div>
 
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
 
     .postBox {
         display: flex;
