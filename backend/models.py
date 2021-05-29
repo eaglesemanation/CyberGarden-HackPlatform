@@ -19,6 +19,7 @@ class User(Model):
     avatar = fields.CharField(max_length=128, null=True)
 
     as_participant: fields.ReverseRelation["Participant"]
+    as_captain: fields.ReverseRelation["Captain"]
     as_organizer: fields.ReverseRelation["Organizer"]
     as_admin: fields.ReverseRelation["Admin"]
 
@@ -32,20 +33,19 @@ class User(Model):
 class Participant(Model):
     id = fields.IntField(pk=True)
     user = fields.OneToOneField("models.User", related_name="as_participant")
-    captain: fields.ForeignKeyRelation["Captain"]
     teams: fields.ManyToManyRelation["Team"]
 
 
 class Captain(Model):
     id = fields.IntField(pk=True)
-    participant = fields.ForeignKeyField("models.Participant", related_name="captain")
-    team = fields.ForeignKeyField("models.Team", related_name="capitan")
+    user = fields.ForeignKeyField("models.User", related_name="as_captain")
+    teams: fields.ForeignKeyRelation["Team"]
 
 
 class Organizer(Model):
     id = fields.IntField(pk=True)
     user = fields.OneToOneField("models.User", related_name="as_organizer")
-    hackathons: fields.ManyToManyRelation["Hackathon"]
+    hackathons: fields.ForeignKeyRelation["Hackathon"]
 
 
 class Admin(Model):
@@ -59,8 +59,8 @@ class Team(Model):
     participants: fields.ManyToManyRelation[Participant] = fields.ManyToManyField(
         "models.Participant"
     )
-    invite_link = fields.CharField(max_length=64)
-    capitan: fields.ForeignKeyRelation["Captain"]
+    invite_link = fields.CharField(max_length=64, unique=True, allows_generated=True)
+    capitan = fields.ForeignKeyField("models.Captain", related_name="")
     hackathons: fields.ManyToManyRelation["Hackathon"]
 
     def __repr__(self):
@@ -77,7 +77,6 @@ class Sponsor(Model):
 
 class HackathonTag(Model):
     """Tags to identify type of hackathon, for example: Web, VR, AR, etc"""
-
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=128)
     hackathons: fields.ManyToManyRelation["Hackathon"]
@@ -87,16 +86,15 @@ class Hackathon(Model):
     id = fields.IntField(pk=True)
     name = fields.CharField(max_length=128)
     description = fields.TextField()
-    image_url = fields.CharField(max_length=128, null=True)
-    #: Hackathon website url
-    url = fields.CharField(max_length=128, null=True)
     start_date = fields.DatetimeField()
-    location_longtitude = fields.FloatField(null=True)
-    location_latitude = fields.FloatField(null=True)
+    #: Hackathon website url
+    image = fields.CharField(max_length=128, null=True)
+    url = fields.CharField(max_length=128, null=True)
+    location_lon = fields.FloatField(null=True)
+    location_lat = fields.FloatField(null=True)
     sponsors: fields.ManyToManyRelation["Sponsor"] = fields.ManyToManyField(
         "models.Sponsor", related_name="hackathons"
     )
-    
     teams: fields.ManyToManyRelation[Team] = fields.ManyToManyField(
         "models.Team", related_name="hackathons"
     )

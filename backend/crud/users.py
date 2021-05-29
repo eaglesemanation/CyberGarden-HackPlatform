@@ -5,7 +5,7 @@ from typing import Any, List, Optional, Union
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from models import Participant, User, UserType
+from models import Participant, User, UserType, Organizer, Captain
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from tortoise.contrib.pydantic import pydantic_model_creator
@@ -101,6 +101,9 @@ def create_access_token(data, expires_data: Optional[timedelta] = None):
 async def create_user_and_token(email: str, password: str):
     user = await User.create(email=email, hashed_password=pwd_context.hash(password))
     await Participant.create(user=user)
+    await Organizer.create(user=user)
+    await Captain.create(user=user)
+
     expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     return user, create_access_token(data={"sub": user.email}, expires_data=expires)
 
@@ -146,7 +149,7 @@ class Edit(BaseModel):
 #     return await PrivateUser.from_tortoise_orm(user)
 
 
-@router.delete("/delete")
+@router.delete("/")
 async def destroy(user=Depends(get_user)):
     await user.delete()
     return {"ok": True}

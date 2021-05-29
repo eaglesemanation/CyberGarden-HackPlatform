@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from tortoise import Tortoise
 
-from crud import users
+from crud import users, hacks, teams
 
 load_dotenv()
 
@@ -29,6 +29,8 @@ app.add_middleware(
 )
 
 app.include_router(users.router, prefix="/users", tags=["Users"])
+app.include_router(hacks.router, prefix='/hacks', tags=["Hacks"])
+app.include_router(teams.router, prefix='/teams', tags=["Teams"])
 
 db_url = os.getenv("DB_URL")
 config_var = {
@@ -45,7 +47,9 @@ try:
     shutil.rmtree(
         "db/test"
     )  # Удаляем папку с тестовой базой данных при запуске и импорте
+
 except FileNotFoundError:
+    print('Error during delete')
     pass
 
 for path in ["db/test"]:
@@ -58,10 +62,9 @@ async def startup():
     await Tortoise.generate_schemas(safe=True)
 
 
-@app.on_event("shutdown")
+@app.on_event('shutdown')
 async def shutdown():
     await Tortoise.close_connections()
-
 
 if __name__ == "__main__":
     uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=True, use_colors=True)
