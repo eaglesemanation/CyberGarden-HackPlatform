@@ -25,6 +25,7 @@ export async function sendForm(isLogin, username, password) {
   let {access_token, token_type, user_id} = json_response;
   console.log(access_token);
   userToken.updateInfo(access_token);
+
 }
 
 
@@ -45,9 +46,9 @@ export function storeFetch(url, method, data=null) {
         method, 
         headers: new Headers({
             'Accept': 'application/json',
-            'Authorization': 'Bearer ' + get(userToken),
+            'Authorization': 'Bearer ' + userToken,
     })};
-    if (method !== 'get'){
+    if (method !== 'get') {
       request.body = JSON.stringify(data)
     }
 
