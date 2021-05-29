@@ -19,13 +19,14 @@
         }
         return true;
     }
-	function submit(){
+	function submit() {
         if(!validate()) return;
-        //тута запрос к серверу
-        userToken.updateInfo("12:asd1:12w1e:1231");//заглушка, получим с бека
-        userStatus.updateInfo("capitan");//заглушка, получим с бека
-		window.location.replace("/");//если все прошло успешно
+        
+        userToken.updateInfo("12:asd1:12w1e:1231"); //заглушка, получим с бека
+        userStatus.updateInfo("capitan"); //заглушка, получим с бека
+		window.location.replace("/"); //если все прошло успешно
 	}
+
 </script>
 
 <div class="main-block">
@@ -58,6 +59,10 @@
     img {
         max-width: 90%;
         height: auto;
+    }
+
+    .auth-wrapper {
+        margin-left: 3em;
     }
 
 	.authBox{

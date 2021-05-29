@@ -4,17 +4,19 @@
     export let about="";
 </script>
 
-<div class="postBox">
-    <h2>{name}</h2>
-    <h3>{date}</h3>
-    <p>{about}</p>
-    <a sveltekit:prefetch href="/eventPage-{name}">more info...</a>
+<div class="card">
+    <div class="info-block">
+        <h2>{name}</h2>
+        <h3>{date}</h3>
+        <p>{about}</p>
+        <a sveltekit:prefetch href="/eventPage-{name}">more info...</a>
+    </div>
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
 
-    .postBox{
+    .info-block {
         margin-top: 30px;
         background-color: #ffffff;
         border: 3px solid #E1E3E6;
