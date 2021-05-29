@@ -9,7 +9,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from settings import PROD_TORTOISE_ORM, TEST_TORTOISE_ORM
 from tortoise import Tortoise
-# from tools.db import fill_db
+from tools.db import fill_db
 from crud import users, hacks, teams, locations
 
 
@@ -56,7 +56,7 @@ for path in ['db/test', 'db/prod']:
 async def startup():
     await Tortoise.init(config=config_var)
     await Tortoise.generate_schemas(safe=True)
-    # await fill_db()
+    await fill_db()
 
 
 @app.on_event('shutdown')

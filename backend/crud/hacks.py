@@ -49,3 +49,8 @@ async def get_single(id: int):
     if hack is None:
         raise HTTPException(status_code=404, detail='Hackathon not found')
     return await PublicHackathon.from_tortoise_orm(hack)
+
+
+@router.post('/enter')
+async def enter_hackathon():
+    ...
