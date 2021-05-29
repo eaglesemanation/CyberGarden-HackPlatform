@@ -1,17 +1,24 @@
+<script context="module">
+  export async function load({page}){
+    let {path} = page
+    console.log(path);
+    return {}
+  }
+
+</script>
+
 <script>
-	let url = new URL(window.location.href);
-    let nameEvent = url.pathname;
-	const eventExample = {
-		name: "Cyber garden",
-		date: "28.05.2021",
-		addres: "moscow",
-		organizers: ["ooo 3 axes", "12edsa"],
-		sponsor: ["12", "12e12"]
-	}//запрос с сервера
+  const eventExample = {
+    name: "Cyber garden",
+    date: "28.05.2021",
+    addres: "moscow",
+    organizers: ["ooo 3 axes", "12edsa"],
+    sponsor: ["12", "12e12"]
+  }//запрос с сервера
 </script>
 
 <svelte:head>
-	<title>event page</title>
+  <title>event page</title>
 </svelte:head>
 {nameEvent}
 <h1>name: {eventExample.name}</h1>

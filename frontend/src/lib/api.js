@@ -1,10 +1,17 @@
 import {writable, get} from 'svelte/store'
 import cookie from 'cookie';
 
-export const apiUrl = 'https://b.cybergarden.hackmasters.tech/';
-export const selfUrl = 'https://cybergarden.hackmasters.tech/';
+export const apiUrl = 'https://b.cybergarden.hackmasters.tech';
+export const selfUrl = 'https://cybergarden.hackmasters.tech';
 
-function setCookie(name, value, options = {}) {
+
+export function deleteCookie(name) {
+  setCookie(name, "", {
+    'max-age': -1
+  })
+}
+
+export function setCookie(name, value, options = {}) {
   options = {
     path: '/',
     ...options
@@ -52,6 +59,19 @@ export let dataStore = writable({});
 
 // TODO добавить контроль над сроком действия токена
 
+export const fetches = {
+  get: (apiPart, token) => {
+    return storeFetch(apiUrl + apiPart, 'get', {}, token)
+  },
+  post: (apiPart, data, token) => {
+    return storeFetch(apiUrl + apiPart, 'post', data, token)
+  },
+  delete: (apiPart, token) => {
+    return storeFetch(apiUrl + apiPart, 'delete', {}, token)
+  },
+}
+
+
 export function storeFetch(url, method, data = null, token = null) {
   const store = writable(new Promise(() => {
   }));
@@ -69,7 +89,6 @@ export function storeFetch(url, method, data = null, token = null) {
     if (method !== 'get') {
       request.body = JSON.stringify(data)
     }
-
     const response = await fetch(url, request);
     const rsp = await response.json();
     console.log(JSON.stringify(rsp))
@@ -77,7 +96,6 @@ export function storeFetch(url, method, data = null, token = null) {
     store.set(Promise.resolve(rsp));
     dataStore.set(rsp);
   };
-
   load();
   return store;
 }

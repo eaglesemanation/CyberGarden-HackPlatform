@@ -1,9 +1,7 @@
 <script context="module">
   export function load({session}) {
-    console.log(session)
     if (session.token && session.role) {
       return {redirect: '/account', status: 301}
-    } else {
     }
     return {}
   }
@@ -19,12 +17,6 @@
   let Token;
   let errorMessage = null;
   $: showError = !!errorMessage;
-
-
-  onMount(() => {
-    Token = localStorage.getItem("token");
-    console.log(Token)
-  })
 
   function validate() {
     if (mail === "") {
@@ -78,8 +70,6 @@
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
-
   .main-block {
     display: flex;
     align-items: center;

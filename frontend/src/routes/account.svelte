@@ -1,24 +1,27 @@
 <script context="module">
-  import {storeFetch} from "$lib/api";
+  import {fetches} from "$lib/api";
 
   export async function load({session}) {
     let {token, role} = session;
-    console.log(session);
     if (!token || !role) {
-      return {redirect: "/authorization", status: 301}
+      return {redirect: "/authorization", status: 301};
     }
-    let promise = storeFetch('https://b.cybergarden.hackmasters.tech/users/profile', 'get', {}, token);
-    return {}
+    let promise = fetches.get('/users/profile', token)
+    return {
+      props: {promise}
+    };
+
   }
 </script>
 
 <script>
   import {onMount} from "svelte";
-  // import {user} from '$lib/api.js';
+  import {deleteCookie} from '$lib/api.js';
   import {writable} from "svelte/store";
 
-  let promise = writable(new Promise(() => {
-  }));
+  import {goto} from "$app/navigation";
+
+  export let promise;
   let state = true;
   let Token;
   let Status;
@@ -36,9 +39,10 @@
     // Status = localStorage.getItem("status");
   })
 
-  function funcOut() {
-    localStorage.clear();
-    window.location.replace("/");
+  function exit() {
+    deleteCookie("token");
+    deleteCookie("role");
+    goto("/");
   }
 
   function funcDelete() {
@@ -82,7 +86,7 @@
 {/await}
 
 
-<button on:click={funcOut}>OUT</button>
+<button on:click={exit}>Выйти</button>
 <button on:click={funcDelete}>DELETE ACCOUNT</button>
 
 <h1>Token = {Token}, Status = {Status}</h1>
