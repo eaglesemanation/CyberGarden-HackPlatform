@@ -1,15 +1,14 @@
-import os
 from datetime import datetime, timedelta
-from typing import Any, List, Optional, Union
+from typing import Any, Optional, Union
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
-from models import Participant, User, UserRole, Organizer, Captain
+from models import Captain, Organizer, Participant, User, UserRole
 from passlib.context import CryptContext
 from pydantic import BaseModel
+from settings import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY
 from tortoise.contrib.pydantic import pydantic_model_creator
-from settings import ALGORITHM, ACCESS_TOKEN_EXPIRE_MINUTES, SECRET_KEY
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -29,8 +28,9 @@ PublicUser = pydantic_model_creator(
     User, name="PublicUser", exclude=excluded, include=included
 )
 PrivateUser = pydantic_model_creator(
-    User, name="PrivateUser", include=("fio", "email", "type")
+    User, name="PrivateUser", include=("fio", "email", "role", "avatar")
 )
+EditUser = pydantic_model_creator(User, name="EditUser", include=("fio", "avatar"))
 
 
 class TokenAndRole(BaseModel):
@@ -79,9 +79,21 @@ async def get_user(token: str = Depends(oauth2_scheme)) -> User:
     return user
 
 
+async def get_organizer(user: User = Depends(get_user)):
+    if user.role == UserRole.ORGANIZER:
+        return user
+    raise HTTPException(status_code=403, detail="Forbidden")
+
+
+async def get_capitan(user: User = Depends(get_user)):
+    if user.role == UserRole.CAPTAIN:
+        return user
+    raise HTTPException(status_code=403, detail="Forbidden")
+
+
 async def get_admin(user: User = Depends(get_user)):
-    if user.type == UserRole.ADMIN:
-        return user.as_admin
+    if user.role == UserRole.ADMIN:
+        return user
     raise HTTPException(status_code=403, detail="Forbidden")
 
 
@@ -96,8 +108,10 @@ def create_access_token(data, expires_data: Optional[timedelta] = None):
     return encoded_jwt
 
 
-async def create_user_and_token(email: str, password: str):
-    user = await User.create(email=email, hashed_password=pwd_context.hash(password))
+async def create_user_and_token(email: str, password: str, role=UserRole.PARTICIPANT):
+    user = await User.create(
+        email=email, hashed_password=pwd_context.hash(password), role=role
+    )
     await Participant.create(user=user)
     await Organizer.create(user=user)
     await Captain.create(user=user)
@@ -117,7 +131,9 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
         )
     expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(data={"sub": user.email}, expires_data=expires)
-    return TokenAndRole(access_token=access_token, token_type="bearer", user_id=user.id, role=user.role)
+    return TokenAndRole(
+        access_token=access_token, token_type="bearer", user_id=user.id, role=user.role
+    )
 
 
 @router.post("/create", response_model=TokenAndRole)
@@ -126,7 +142,29 @@ async def new_user(form_data: OAuth2PasswordRequestForm = Depends()):
     if user is not None:
         raise HTTPException(400, "User already exists")
     user, token = await create_user_and_token(form_data.username, form_data.password)
-    return TokenAndRole(access_token=token, token_type="bearer", user_id=user.id, role=user.role)
+    return TokenAndRole(
+        access_token=token, token_type="bearer", user_id=user.id, role=user.role
+    )
+
+
+@router.post("/create_organizer", response_model=TokenAndRole)
+async def new_organizer(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    DEBUG FUNCTION, SHOULD BE REMOVED
+    Creates new user with organizer role
+    """
+    user = await User.get_or_none(email=form_data.username)
+    if user is not None:
+        raise HTTPException(400, "User already exists")
+    user, token = await create_user_and_token(
+        form_data.username, form_data.password, UserRole.ORGANIZER
+    )
+    return TokenAndRole(
+        access_token=token,
+        token_type="bearer",
+        user_id=user.id,
+        role=user.role,
+    )
 
 
 @router.get("/profile", response_model=PrivateUser)
@@ -134,17 +172,11 @@ async def profile(user: User = Depends(get_user)):
     return await PrivateUser.from_tortoise_orm(user)
 
 
-class Edit(BaseModel):
-    fio: str
-    tags: List[str]
-    about: str
-
-
-# @router.put('/edit', response_model=PrivateUser)
-# async def edit(edited: Edit, user=Depends(get_user)):
-#     user = await user.update_from_dict(dict(fio=edited.fio, about=edited.about))
-#     await user.save()
-#     return await PrivateUser.from_tortoise_orm(user)
+@router.put("/edit", response_model=PrivateUser)
+async def edit(edited: EditUser, user=Depends(get_user)):
+    user = await user.update_from_dict(edited.dict())
+    await user.save()
+    return await PrivateUser.from_tortoise_orm(user)
 
 
 @router.delete("/")
