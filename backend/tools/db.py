@@ -1,13 +1,14 @@
-from models import Hackathon
 import json
-import os
 
+from models import Hackathon
 
-with open('tools/data.json', 'r', encoding='utf8') as file:
+with open("tools/data.json", "r", encoding="utf8") as file:
     data = json.load(file)
 
 
 async def fill_db():
+    if len(await Hackathon.all()) != 0:
+        return
     for hack in data:
         await Hackathon.create(
             **hack,
