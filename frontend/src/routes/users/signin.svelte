@@ -8,7 +8,6 @@
 </script>
 
 <script>
-  import {onMount} from "svelte";
   import MainButton from '$lib/MainButton/index.svelte';
   import {sendForm} from "$lib/api";
   import {goto} from "$app/navigation";
@@ -126,17 +125,6 @@
     outline: none;
     border: 1px solid #43DFA8;
     box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
-  }
-
-  .auth-button {
-    background-color: #00160A;
-    color: #fff;
-    font-family: 'Ubuntu';
-    font-weight: 500;
-    border-color: #00160A;
-    border-radius: 30px;
-    padding: 0.75em 2em;
-    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
 
   .reg-button {
