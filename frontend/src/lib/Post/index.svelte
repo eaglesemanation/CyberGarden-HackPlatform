@@ -8,7 +8,7 @@
     <h2>{name}</h2>
     <h3>{date}</h3>
     <p>{about}</p>
-    <a sveltekit:prefetch href="/eventPage">more info...</a>
+    <a sveltekit:prefetch href="/eventPage-{name}">more info...</a>
 </div>
 
 <style>

@@ -1,11 +1,11 @@
 <script>
     export let name = "";
 </script>
-
+ 
 
 <div class="teamBox">
     <h2>Team: {name}</h2>
-    <button> <a href="/{name}">Перейти</a> </button>
+    <button> <a href="/team-{name}">Перейти</a> </button>
 </div>
 
 <style>
