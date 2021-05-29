@@ -1,7 +1,9 @@
 <script>
 	import { onMount } from "svelte";
 	import { getCookie, getData, dataStore, authorizedRequest } from '../../../_api.js';
-	
+
+	const {fio, role} = $dataStore;
+
 	let state = true;
 	let Token;
 	let Status;
@@ -39,6 +41,7 @@
 	<title>account</title>
 </svelte:head>
 
+<p>{$dataStore.fio}</p>
 <img src={accountInfo.avatar} alt="error">
 <h2>{accountInfo.fio}, {accountInfo.status}</h2>
 {#if state}

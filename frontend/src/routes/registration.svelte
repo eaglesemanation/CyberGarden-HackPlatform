@@ -1,7 +1,10 @@
 <script>
+	import {sendForm} from "../_api.js";
 	let mail = "";
 	let password1 = "";
 	let password2 = "";
+	let errorMessage = null;
+	$: showError = !!errorMessage;
 
 	function validate(){
         if(mail === "") {
@@ -30,7 +33,7 @@
         if(!validate()) return;
         //тута запрос к серверу
 		showError = false;
-        let error = await sendForm(false, mail.value, password.value);
+        let error = await sendForm(false, mail.value, password1.value);
         if (error) {
             alert(error);
             return;
