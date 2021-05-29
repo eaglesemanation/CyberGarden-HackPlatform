@@ -22,18 +22,18 @@
 	<div class="header-left"><a sveltekit:prefetch href="/" class="logo-brand">Garden<span class="green">Masters</span></a></div>
     <div class="header-center">
         <ul>
-            <li><a sveltekit:prefetch href="/poster">Афиша</a></li>
-			<li><a sveltekit:prefetch href="/account">Профиль</a></li>
-			<li><a sveltekit:prefetch href="/eventRegistration">Новое мероприятие</a></li>
+            <li><a sveltekit:prefetch href="/events/poster">Афиша</a></li>
+			<li><a sveltekit:prefetch href="/users/self">Профиль</a></li>
+			<li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
 			{#if (Status==="organizer")||(Status==="admin")}
-				<li><a sveltekit:prefetch href="/eventRegistration">Новое мероприятие</a></li>
+				<li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
 			{:else if (Status==="participant")||(Status==="capitan")}
-				<li><a sveltekit:prefetch href="/teaming">Команда</a></li>
+				<li><a sveltekit:prefetch href="/teams/self">Команда</a></li>
 			{/if}
         </ul>
     </div>
 	{#if Token === null}
-    	<a sveltekit:prefetch href="/authorization" class="main-button">Авторизация</a>
+    	<a sveltekit:prefetch href="/users/signin" class="main-button">Авторизация</a>
 	{:else}
 		<button on:click={funcOut} class="main-button">Выход</button>
 	{/if}
