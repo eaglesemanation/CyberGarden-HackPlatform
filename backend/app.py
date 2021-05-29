@@ -30,9 +30,10 @@ app.add_middleware(
 )
 
 app.include_router(users.router, prefix="/users", tags=["Users"])
-app.include_router(hacks.router, prefix='/hacks', tags=["Hacks"])
-app.include_router(teams.router, prefix='/teams', tags=["Teams"])
-app.include_router(locations.router, prefix='/locations', tags=["Locations"])
+app.include_router(participants.router, prefix="/participants", tags=["Participants"])
+app.include_router(hacks.router, prefix="/hacks", tags=["Hacks"])
+app.include_router(teams.router, prefix="/teams", tags=["Teams"])
+app.include_router(locations.router, prefix="/locations", tags=["Locations"])
 
 
 try:
@@ -41,7 +42,7 @@ try:
     )  # Удаляем папку с тестовой базой данных при запуске и импорте
 
 except FileNotFoundError:
-    print('Error during delete')
+    print("Error during delete")
     pass
 
 for path in ["db/test"]:
@@ -50,7 +51,7 @@ for path in ["db/test"]:
 config_var = PROD_TORTOISE_ORM
 # config_var = TEST_TORTOISE_ORM
 
-for path in ['db/test', 'db/prod']:
+for path in ["db/test", "db/prod"]:
     Path(path).mkdir(parents=True, exist_ok=True)
 
 
@@ -61,9 +62,10 @@ async def startup():
     await fill_db()
 
 
-@app.on_event('shutdown')
+@app.on_event("shutdown")
 async def shutdown():
     await Tortoise.close_connections()
+
 
 if __name__ == "__main__":
     uvicorn.run("app:app", reload=True, use_colors=True)
