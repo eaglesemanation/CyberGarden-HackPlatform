@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from typing import Any, List, Optional, Union
 
@@ -7,8 +8,11 @@ from jose import JWTError, jwt
 from models import Participant, User, UserType
 from passlib.context import CryptContext
 from pydantic import BaseModel
-from settings import ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM, SECRET_KEY
 from tortoise.contrib.pydantic import pydantic_model_creator
+
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ALGORITHM = os.getenv("ALGORITHM")
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 router = APIRouter()
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
