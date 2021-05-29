@@ -41,7 +41,6 @@
             return;
         }
 
-        userToken.updateInfo("12:asd1:12w1e:1231"); //заглушка, получим с бека
         userStatus.updateInfo("capitan"); //заглушка, получим с бека
 		// window.location.replace("/poster"); //если все прошло успешно
 	}
