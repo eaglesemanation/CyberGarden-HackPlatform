@@ -52,8 +52,7 @@
       errorMessage = error;
       return;
     }
-    goto("/account")
-    // window.location.replace("/account");
+    goto("/users/self")
   }
 
 </script>
@@ -70,7 +69,7 @@
       {#if (errorMessage != null)}
         <h3>{errorMessage}</h3>
       {/if}
-      <MainButton on:click={submit} btntext="Зарегистрироваться"></MainButton>
+      <MainButton on:click={submit} btntext="Зарегистрироваться"/>
     </div>
   </div>
 </div>
