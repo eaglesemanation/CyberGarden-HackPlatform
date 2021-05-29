@@ -135,12 +135,12 @@
   }
 
   @media (max-width: 1000px) {
-    
+
     .main-block {
       flex-direction: column;
     }
 
-    .auth-wrapper {
+    .regBox {
       margin-left: 0;
     }
 
