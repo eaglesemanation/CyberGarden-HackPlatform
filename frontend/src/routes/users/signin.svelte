@@ -1,12 +1,12 @@
 <script context="module">
   export function load({session}) {
     if (session.token && session.role) {
-      return {redirect: '/account', status: 301}
+      return {redirect: '/users/self', status: 301}
     }
     return {}
   }
-
 </script>
+
 <script>
   import {onMount} from "svelte";
   import {sendForm} from "$lib/api";

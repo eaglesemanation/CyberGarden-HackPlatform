@@ -26,11 +26,8 @@
 			<li><a sveltekit:prefetch href="/users/self">Профиль</a></li>
 			<li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
 			{#if (Status==="organizer")||(Status==="admin")}
-<<<<<<< Updated upstream
 				<li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
-=======
 				<li><a sveltekit:prefetch href="/eventAdmin">Дашборд</a></li>
->>>>>>> Stashed changes
 			{:else if (Status==="participant")||(Status==="capitan")}
 				<li><a sveltekit:prefetch href="/teams/self">Команда</a></li>
 			{/if}

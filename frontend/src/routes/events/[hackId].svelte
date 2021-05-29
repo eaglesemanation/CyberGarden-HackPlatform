@@ -8,6 +8,7 @@
 </script>
 
 <script>
+  export let name;
   const eventExample = {
     name: "Cyber garden",
     date: "28.05.2021",
@@ -20,7 +21,7 @@
 <svelte:head>
   <title>event page</title>
 </svelte:head>
-{nameEvent}
+<h1>{hackId}</h1>
 <h1>name: {eventExample.name}</h1>
 <h1>date: {eventExample.date}</h1>
 <h1>addres: {eventExample.addres}</h1>

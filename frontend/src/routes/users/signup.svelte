@@ -1,3 +1,12 @@
+<script context="module">
+  export function load({session}) {
+    if (session.token && session.role) {
+      return {redirect: '/users/self', status: 301}
+    }
+    return {}
+  }
+</script>
+
 <script>
   import {sendForm} from "$lib/api.js";
   import {goto} from "$app/navigation";

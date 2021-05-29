@@ -4,7 +4,7 @@
   export async function load({session}) {
     let {token, role} = session;
     if (!token || !role) {
-      return {redirect: "/authorization", status: 301};
+      return {redirect: "/users/signin", status: 301};
     }
     let promise = fetches.get('/users/profile', token)
     return {
