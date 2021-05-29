@@ -30,7 +30,7 @@
 
 <h1>token in storage (svelte) - {Token}</h1>
 <div class="authBox">
-    <input bind:value={mail} placeholder="Mail" type="email">
+    <input bind:value={mail} placeholder="E-mail" type="email">
     <input bind:value={password} placeholder="Пароль" type="password">
     <div class="buttonsBox">
         <button on:click={submit}>Вход</button>
@@ -39,14 +39,29 @@
 </div>
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
+
 	.authBox{
 		display: flex;
 		flex-direction: column;
 	}
-	.authBox input{
-		width: 200px;
+
+	input {
+		max-width: 400px;
+        height: 48px;
+        margin: 1em;
+        margin-bottom: 0.5em;
+        border-radius: 8px;
+        padding-left: 2em;
+        border: 1px solid #E1E3E6;
+        font-family: 'Ubuntu';
+        font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
 	}
-    .authBox button{
-		width: 100px;
-	}
+
+    input:focus {
+        outline: none;
+        border: 1px solid #43DFA8;
+        box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
+    }
+
 </style>
