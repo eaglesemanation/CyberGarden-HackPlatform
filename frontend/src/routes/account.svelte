@@ -93,7 +93,7 @@
 
 <style>
 
-.main-block {
+  .main-block {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,15 +102,18 @@
     height: 80vh;
     margin: 1em;
   }
+
   h1 {
     font-family: 'Ubuntu';
     font-weight: 700;
   }
+  
   .skills {
     display: flex;
     text-align: center;
     justify-content: center;
   }
+
   .skills h3 {
     background-color: rgba(222, 222, 222, 0.5);
     padding: 0.5em 1em;
@@ -119,7 +122,7 @@
     font-family: 'Ubuntu';
     font-weight: 400;
   }
-  
+
   .inputs {
     display: flex;
     flex-direction: column;
