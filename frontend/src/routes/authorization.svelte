@@ -1,8 +1,18 @@
-<script>
+<script context="module">
+  export function load({session}) {
+    console.log(session)
+    if (session.token && session.role) {
+      return {redirect: '/account', status: 301}
+    } else {
+    }
+    return {}
+  }
 
+</script>
+<script>
   import {onMount} from "svelte";
-  import {sendForm} from "$lib/_api";
-  import {userToken, userStatus} from '$lib/_store';
+  import {sendForm} from "$lib/api";
+  import {goto} from "$app/navigation";
 
   let mail = "";
   let password = "";
@@ -41,13 +51,15 @@
       return;
     }
 
-    userStatus.updateInfo("capitan"); //заглушка, получим с бека
-    window.location.replace("/poster"); //если все прошло успешно
+    // userStatus.updateInfo("capitan"); //заглушка, получим с бека
+    // window.location.replace("/poster"); //если все прошло успешно
+    goto("/poster"); //если все прошло успешно
   }
 
 </script>
 
 <div class="main-block">
+  <!-- svelte-ignore a11y-missing-attribute -->
   <img src="./static/space.svg"/>
   <div class="auth-wrapper">
     <h1>Зайти в <span class="green">пространство</span></h1>
