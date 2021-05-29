@@ -10,7 +10,7 @@ from starlette.middleware.cors import CORSMiddleware
 from settings import PROD_TORTOISE_ORM, TEST_TORTOISE_ORM
 from tortoise import Tortoise
 # from tools.db import fill_db
-from crud import users, hacks, teams
+from crud import users, hacks, teams, locations
 
 
 app = FastAPI(
@@ -30,6 +30,7 @@ app.add_middleware(
 app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(hacks.router, prefix='/hacks', tags=["Hacks"])
 app.include_router(teams.router, prefix='/teams', tags=["Teams"])
+app.include_router(locations.router, prefix='/locations', tags=["Locations"])
 
 db_url = os.getenv("DB_URL")
 
