@@ -15,6 +15,7 @@ function createToken() {
 		reset: () => set("")
 	};
 }
+
 function createStatus() {
 	const { subscribe, set, update } = writable("none");
 

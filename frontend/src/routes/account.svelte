@@ -45,7 +45,7 @@
 {#await $promise}
 	<h1>Загрузка...</h1>
 {:then {fio, role, id}}
-	<p>{$promise.id}</p>
+	<p>{$promise.role}</p>
 	<p>{$userToken}</p>
 	<img src={accountInfo.avatar} alt="error">
 	<h2>{accountInfo.fio}, {accountInfo.status}</h2>

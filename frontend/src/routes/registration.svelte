@@ -1,6 +1,6 @@
 <script>
 
-	import {sendForm} from "../_api.js";
+	import {sendForm} from "$lib/_api.js";
 
 	let mail = "";
 	let password1 = "";
@@ -45,7 +45,7 @@
 
 		window.location.replace("/account");
 	}
-	
+
 </script>
 
 <div class="main-block">
@@ -62,7 +62,6 @@
 </div>
 
 <style>
-	@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@700&family=Ubuntu:wght@400;500;700&display=swap');
 
 	.main-block {
         display: flex;
