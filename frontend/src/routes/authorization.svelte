@@ -52,15 +52,12 @@
         justify-content: center;
         place-items: center;
         height: 80vh;
+        margin: 1em;
     }
 
     img {
         max-width: 90%;
         height: auto;
-    }
-
-    .auth-wrapper {
-        margin: 1em;
     }
 
 	.authBox{

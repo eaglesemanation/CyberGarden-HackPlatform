@@ -1,11 +1,13 @@
 <script>
     export let name="";
     export let date=""; 
+    export let location="";
     export let about="";
 </script>
 
 <div class="postBox">
     <h2>{name}</h2>
+    <h3>{location}</h3>
     <h3>{date}</h3>
     <p>{about}</p>
     <a sveltekit:prefetch href="/eventPage-{name}">more info...</a>
