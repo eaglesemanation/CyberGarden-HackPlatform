@@ -2,12 +2,14 @@ version: '3.9'
 services:
   frontend:
     build: "./frontend"
+    shm_size: '128m'
     ports:
-      - "80:3000"
+      - "3000:3000"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.front.entrypoints=https"
       - "traefik.http.routers.front.rule=Host(`cybergarden.hackmasters.tech`)"
+      #      - "traefik.http.routers.front.rule=Host(`cybergarden.localhost`)"
       - "traefik.http.routers.front.tls=true"
       - "traefik.http.routers.front.tls.certresolver=letsEncrypt"
       - "traefik.http.middlewares.redirect-to-https.redirectScheme.scheme=https"
@@ -22,6 +24,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.entrypoints=https"
       - "traefik.http.routers.backend.rule=Host(`b.cybergarden.hackmasters.tech`)"
+      #      - "traefik.http.routers.backend.rule=Host(`b.cybergarden.localhost`)"
       - "traefik.http.routers.backend.tls=true"
       - "traefik.http.routers.backend.tls.certresolver=letsEncrypt"
       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
@@ -37,7 +40,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/traefik.yml:/traefik.yml:ro
+      - ./traefik/traefik.yaml:/traefik.yaml:ro
       - ./traefik/acme.json:/acme.json
 
     labels:
@@ -52,8 +55,8 @@ services:
       - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$OHsymSWA$$FcWFxYK.9iH8Ny/FlJ8pv1"
       - "traefik.http.routers.traefik.middlewares=traefik-auth"
 
-#      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
-#      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-#      - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
-#      - "traefik.http.routers.http_catchall.entrypoints=http"
-#      - "traefik.http.routers.http_catchall.middlewares=https_redirect"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
+      - "traefik.http.routers.http_catchall.entrypoints=http"
+      - "traefik.http.routers.http_catchall.middlewares=https_redirect"
