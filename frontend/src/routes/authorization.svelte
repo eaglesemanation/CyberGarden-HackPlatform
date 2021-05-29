@@ -1,4 +1,5 @@
 <script>
+    
     import { onMount } from "svelte";
     import {sendForm} from "../_api.js";
     import {userToken, userStatus } from '$lib/_store';
@@ -28,7 +29,11 @@
     }
 
 	async function submit() {
+
+        // проверка на валидность указанных данных
         if (!validate()) return;
+
+        // отправка запроса на авторизацию
         showError = false;
         let error = await sendForm(true, mail.value, password.value);
         if (error) {
@@ -38,7 +43,7 @@
 
         userToken.updateInfo("12:asd1:12w1e:1231"); //заглушка, получим с бека
         userStatus.updateInfo("capitan"); //заглушка, получим с бека
-		window.location.replace("/"); //если все прошло успешно
+		window.location.replace("/poster"); //если все прошло успешно
 	}
 
 </script>

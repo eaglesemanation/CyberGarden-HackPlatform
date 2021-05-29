@@ -1,5 +1,7 @@
 <script>
+
 	import {sendForm} from "../_api.js";
+
 	let mail = "";
 	let password1 = "";
 	let password2 = "";
@@ -29,17 +31,21 @@
     }
 
 	async function submit(){
-		console.log("start");
+
+		// проверка на валидность указанных данных
         if(!validate()) return;
-        //тута запрос к серверу
+
+        // отправка на сервер запроса на регистрацию
 		showError = false;
         let error = await sendForm(false, mail.value, password1.value);
         if (error) {
             alert(error);
             return;
         }
-		console.log("end");
+
+		window.location.replace("/account");
 	}
+	
 </script>
 
 <div class="main-block">

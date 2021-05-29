@@ -1,12 +1,16 @@
 <script>
+	
 	import { page } from '$app/stores';
 	import { onMount } from "svelte";
+
 	let Token;
 	let Status;
+
     onMount(() => {
         Token = localStorage.getItem("token");
 		Status = localStorage.getItem("status");
     })
+
 </script>
 
 <header>
