@@ -26,22 +26,25 @@
 
 
 <h1>Создать команду</h1>
-
-<img src="./static/forTeamCreator.svg" />    
-
-<div class="box">
-    <div class="inputs">
-        <input bind:value={name} type="text" placeholder="Team name">
-        <input bind:value={hack} type="text" placeholder="For hack">
+<div class="main">
+    <div class="box">
+        <div class="inputs">
+            <input bind:value={name} type="text" placeholder="Team name">
+            <input bind:value={hack} type="text" placeholder="For hack">
+        </div>
+        <button class="main-button" on:click={funcCreateTeam}>Создать команду</button>
     </div>
-    <button class="main-button" on:click={funcCreateTeam}>Создать команду</button>
+
+    <img src="./static/forTeamCreator.svg" />    
 </div>
 
+
 <style>
+    .main{
+        display: flex;
+    }
     img{
-        position: absolute;
-        top: 0;
-        right: 0;
+        margin-top: -100px;
         height: 40vw;
         width: 40vw;
         margin-right: 120px;
@@ -64,7 +67,7 @@
         box-sizing: border-box;
         border-radius: 30px;
         width: 40vw;
-        height: 25vw;
+        height: 20vw;
         padding-top: 0;
         margin-left: 2%;
         margin-right: 2%;
@@ -94,11 +97,9 @@
         margin-right: auto;
     }
     input {
-        /* margin-top: auto; */
         width: 30vw;
-		/* max-width: 400px; */
         height: 48px;
-        margin-bottom: 0.5em;
+        margin-bottom: 0.7em;
         border-radius: 8px;
         border: 1px solid #E1E3E6;
         font-family: 'Ubuntu';
@@ -110,9 +111,15 @@
         border: 1px solid #43DFA8;
         box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
     }
-    @media (max-width: 500px){ 
+    @media (max-width: 800px){ 
+        img{
+            height: 0vw;
+            width: 0vw;
+        }
         .box{
             width: 90vw;
+            margin-left: 7vw;
+            /* margin-right: 50px; */
         }
         input{
             width: 80vw;
@@ -120,8 +127,7 @@
     }
     @media (max-width: 1000px){ 
         img{
-            height: 0vw;
-            width: 0vw;
+            margin-top: -200px;
         }
         .main-button{
             width: 150px;
