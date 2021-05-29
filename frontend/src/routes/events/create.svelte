@@ -1,6 +1,5 @@
 <script context="module">
   import {fetches} from "$lib/api";
-
   export async function load({session}) {
     let {token, role} = session;
     if (!token || !role) {
@@ -27,10 +26,10 @@
 
 
 <svelte:head>
-  <title>event registration</title>
+  <title>Создание хакатона</title>
 </svelte:head>
 
-<h1>event registration</h1>
+<h1>Новый хакатон</h1>
 <div class="inputBox">
   <input bind:value={name} type="text" placeholder="name">
   <input bind:value={date} type="text" placeholder="date">

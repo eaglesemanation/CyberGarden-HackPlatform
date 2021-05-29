@@ -5,7 +5,6 @@
 <button on:click>{btntext}</button>
 
 <style>
-
 	button {
 		background-color: #00160A;
 		color: #fff;
