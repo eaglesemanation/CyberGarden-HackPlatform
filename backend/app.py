@@ -15,8 +15,8 @@ from crud import users, hacks, teams
 load_dotenv()
 
 app = FastAPI(
-    version="0.0.1",
-    title="CyberGarden-HackPlatform-API",
+    version="0.0.2",
+    title="CyberGarden-HackPlatform",
     description="CyberGarden Hackathon project API based on FastAPI",
 )
 
@@ -67,4 +67,4 @@ async def shutdown():
     await Tortoise.close_connections()
 
 if __name__ == "__main__":
-    uvicorn.run("app:app", host="0.0.0.0", port=8080, reload=True, use_colors=True)
+    uvicorn.run("app:app", reload=True, use_colors=True)
