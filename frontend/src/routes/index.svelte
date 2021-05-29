@@ -12,6 +12,7 @@
 	<div class="text">
 		<h1 class="black">Garden<span class="green">Masters</span></h1>
 		<h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
+		<a class="main-button">Что за чуто инструмент?</a>
 	</div>
 </div>
 
@@ -42,8 +43,19 @@
 		line-height: 29px;
 		color: rgba(0, 22, 10, 0.7);
 		width: 40vw;
+		max-width: 500px;
+		margin-bottom: 30px;
 	}
-
+	.main-button {
+		background-color: #00160A;
+		color: #fff;
+		font-family: 'Ubuntu';
+		font-weight: 500;
+		border-color: #00160A;
+		border-radius: 30px;
+		padding: 0.75em 2em;
+		font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+	}
 	@media (max-width: 850px){
 		.main{
 			flex-direction: column;
