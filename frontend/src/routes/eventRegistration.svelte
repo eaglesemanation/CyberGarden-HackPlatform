@@ -7,7 +7,7 @@
 	let information = "";
 	
 	function funcCreate(){
-		console.log("Create");
+		console.log("Create"+information);
 	}
 </script>
 
@@ -21,7 +21,9 @@
 	<input bind:value={name} type="text" placeholder="name">
 	<input bind:value={date} type="text" placeholder="date">
 	<input bind:value={location} type="text" placeholder="location">
-	<input class="information" bind:value={information} type="text" placeholder="information">
+	<textarea class="information" bind:value={information} placeholder="information"></textarea>
+	<input bind:value={sponsor} type="text" placeholder="sponsor">
+	<input bind:value={organizator} type="text" placeholder="organizator">
 </div>
 <button on:click={funcCreate}>create</button>
 <style>
