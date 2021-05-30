@@ -45,6 +45,7 @@
 
 <style>
   img{
+    margin-right: 0px;
     height: 40%;
     width: 40%;
   }
