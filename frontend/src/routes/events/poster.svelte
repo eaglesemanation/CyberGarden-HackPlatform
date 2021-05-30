@@ -175,4 +175,12 @@
     width: 40px;
     /* margin-left: -5px; */
   }
+  .a-box:hover {
+    background-color: rgb(228, 225, 225);
+    transition: 0.7s;
+  }
+  .a-box:active {
+    background-color: rgb(199, 199, 199);
+    transition: 0.1s;
+  }
 </style>
