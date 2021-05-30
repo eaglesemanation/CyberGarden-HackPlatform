@@ -58,8 +58,6 @@
   ]
 
   onMount(async () => {
-    // Token = localStorage.getItem("token");
-    // Status = localStorage.getItem("status");
   })
 
   function exit() {

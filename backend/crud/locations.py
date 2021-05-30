@@ -8,7 +8,7 @@ from tortoise.contrib.pydantic import pydantic_model_creator
 
 router = APIRouter()
 
-Location_Pydantic = pydantic_model_creator(Location, include=("city"))
+Location_Pydantic = pydantic_model_creator(Location)
 
 
 class Coordinate(BaseModel):

@@ -32,7 +32,7 @@
 
       <li><a sveltekit:prefetch href="/events/create">Новое мероприятие</a></li>
       <!--{#if (role === "organizer") || (role === "admin")}-->
-      <li><a sveltekit:prefetch href="/eventAdmin">Дашборд</a></li>
+      <li><a sveltekit:prefetch href="/events/admin">Дашборд</a></li>
       <!--{:else if (role === "participant") || (role === "capitan")}-->
       <!--{/if}-->
     </ul>
