@@ -18,6 +18,9 @@
     <MainButton btntext="Что за чудо-инструмент?"/>
   </div>
 </div>
+<div class="about">
+  <h1>✌ Можно <span class="green">познакомиться?</span></h1>
+</div>
 
 
 <style>
@@ -26,6 +29,12 @@
     justify-content: center;
     align-items: center;
     padding: 5em;
+  }
+
+  .about {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   img {
@@ -57,10 +66,13 @@
   @media (max-width: 850px) {
     .main {
       flex-direction: column;
+      padding: 2em;
     }
 
     .text {
       margin-left: 0;
+      margin-top: 1em;
+      text-align: center;
     }
   }
 </style>
