@@ -2,7 +2,7 @@ from datetime import date
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from models import Hackathon
+from models import Hackathon, Publication
 from pydantic import BaseModel, Field
 from tortoise.contrib.pydantic import pydantic_model_creator
 
@@ -89,3 +89,22 @@ async def enter_hackathon(id: int, user=Depends(get_capitan)):
     [captain] = await user.as_captain
     await hack.teams.add(await captain.team)
     return await PublicHackathon.from_tortoise_orm(hack)
+
+
+class NewPublication(BaseModel):
+    title: str
+    text: str
+
+
+PublicationView = pydantic_model_creator(Publication, exclude=("hackathon", ))
+
+
+@router.post("/{id}/publish")
+async def publish_post(id: int, publication: NewPublication):
+    hackathon = await Hackathon.get_or_none(id=id)
+    if hackathon is None:
+        raise HTTPException(status_code=404, detail='Hackathon not found')
+
+    publication = await Publication.create(**publication.dict(), hackathon_id=hackathon.id)
+    # TODO FETCH TO BOT SERVER
+    return await PublicationView.from_tortoise_orm(publication)

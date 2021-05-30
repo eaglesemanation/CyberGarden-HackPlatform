@@ -78,6 +78,14 @@ class Sponsor(Model):
     hackathons: fields.ManyToManyRelation["Hackathon"]
 
 
+class Publication(Model):
+    id = fields.IntField(pk=True)
+    title = fields.CharField(max_length=128)
+    text = fields.TextField()
+    date = fields.DatetimeField(auto_now=True)
+    hackathon = fields.ForeignKeyField("models.Hackathon", related_name="publications")
+
+
 class HackathonTag(Model):
     """Tags to identify type of hackathon, for example: Web, VR, AR, etc"""
 
@@ -106,7 +114,7 @@ class Hackathon(Model):
     location: fields.ForeignKeyNullableRelation[Location] = fields.ForeignKeyField(
         "models.Location", related_name="hackathons", null=True
     )
-    sponsors: fields.ManyToManyRelation["Sponsor"] = fields.ManyToManyField(
+    sponsors: fields.ManyToManyRelation[Sponsor] = fields.ManyToManyField(
         "models.Sponsor", related_name="hackathons"
     )
     teams: fields.ManyToManyRelation[Team] = fields.ManyToManyField(
@@ -118,6 +126,7 @@ class Hackathon(Model):
     organizers: fields.ManyToManyRelation[Organizer] = fields.ManyToManyField(
         "models.Organizer", related_name="hackathons"
     )
+    publications: fields.ForeignKeyRelation["Publication"]
 
     async def participants_amount(self) -> int:
         teams = await self.teams
