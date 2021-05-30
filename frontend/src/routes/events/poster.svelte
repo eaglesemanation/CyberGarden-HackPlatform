@@ -14,7 +14,7 @@
   let answer;
   let selectedCity = "";
   const cities = [
-    "All", "Таганрог", "Луна", "Москва"
+    "All", "Онлайн", "Таганрог", "Сочи", "Москва", "Барнаул", "Уфа"
   ]
   export let promise;
 
@@ -32,7 +32,7 @@
       return;
     } else if (selectedCity !== "") {
       massF.forEach(element => {
-        let hackCity = element.location.toLowerCase();
+        let hackCity = element.location.city.toLowerCase();
         if (hackCity.indexOf(selectedCity.toLowerCase()) !== -1) {
           postsMass = postsMass.concat(element);
         }
@@ -40,7 +40,7 @@
       if (searchLine !== "") {
         postsMass = [].concat();
         massF.forEach(element => {
-          let hackCity = element.location.toLowerCase();
+          let hackCity = element.location.city.toLowerCase();
           let hackName = element.name.toLowerCase();
           if ((hackName.indexOf(searchLine.toLowerCase()) !== -1) && (hackCity.indexOf(selectedCity.toLowerCase()) !== -1)) {
             postsMass = postsMass.concat(element);
