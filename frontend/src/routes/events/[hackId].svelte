@@ -51,10 +51,13 @@
     </div>
 
     {#each publications as {title, text, date}}
+    <div class="boxForNew">
       <p>{title}</p>
-      <p>{text}</p>
-      <p>{date}</p>
+      <p style="font-size: 20px">{text}</p>
+      <p style="text-align: right">{date.substr(0,10)}</p>
+    </div>
     {/each}
+    <a class="main-button">Создать новость</a>
   </div>
 {/await}
 
@@ -95,5 +98,27 @@
   }
   h1, h2{
     text-align: center;
+  }
+  .boxForNew{
+    border: 3px solid #E1E3E6;
+    margin-bottom: 20px;
+  }
+  .boxForNew p{
+    margin-left: 20px;
+    margin-right: 10px;
+  }
+  .main-button {
+    text-align: center;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #00160A;
+    color: #fff;
+    font-family: 'Ubuntu';
+    font-weight: 500;
+    border-color: #00160A;
+    border-radius: 30px;
+    padding: 0.75em 2em;
+    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
 </style>

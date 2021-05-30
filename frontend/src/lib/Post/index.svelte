@@ -45,7 +45,7 @@
   
   <div class="bottom">
     <div class="leftBox">
-      <a class="main-button" sveltekit:prefetch href="/events/{id}">Регистрация</a>
+      <a class="main-button" sveltekit:prefetch href="/events/{id}">Описание</a>
       <a class="learn" href={url}>Узнать больше</a>
     </div>
     <h3>{likes}</h3>
