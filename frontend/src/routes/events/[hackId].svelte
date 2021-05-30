@@ -1,14 +1,17 @@
 <script context="module">
-  export async function load({page}){
-    let {path} = page
-    console.log(path);
-    return {}
+  import {fetches} from "$lib/api";
+
+  export async function load({page}) {
+    let id = page.params.hackId;
+    let promise = fetches.get(`/hacks/${id}`);
+    return {props: {promise}}
   }
 
 </script>
 
 <script>
-  export let name;
+  export let promise;
+
   const eventExample = {
     name: "Cyber garden",
     date: "28.05.2021",
@@ -21,7 +24,15 @@
 <svelte:head>
   <title>event page</title>
 </svelte:head>
-<h1>{hackId}</h1>
-<h1>name: {eventExample.name}</h1>
-<h1>date: {eventExample.date}</h1>
-<h1>addres: {eventExample.addres}</h1>
+{#await $promise}
+{:then {
+  id, name, description, location_lon,
+  location_lat, location, sponsors, tags,
+  image, start_date, end_date
+}}
+  <h1>{id}</h1>
+  <h1>name: {name}</h1>
+  <h1>start_date: {start_date}</h1>
+  <h1>end_date: {end_date}</h1>
+  <h1>address: {location}</h1>
+{/await}
