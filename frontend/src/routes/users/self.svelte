@@ -33,6 +33,30 @@
     role: "frontend developer",
     education: "NUST MISiS"
   };
+
+  let cards = [
+    {
+      name: "Первая встреча с командой",
+      src: "https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY85964548c320716c.gif"
+    },
+    {
+      name: "Гуру виртуальных миров",
+      src: "https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY-2fa88de9df81eaa20.gif"
+    },
+    {
+      name: "Все ограничения сняты",
+      src: "https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY-4711a1c889ce162b2.gif"
+    },
+    {
+      name: "Три метра до деплоя",
+      src: "https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY-5.gif"
+    },
+    {
+      name: "Звонок правительству",
+      src: "https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY-6.gif"
+    }
+  ]
+
   onMount(async () => {
     // Token = localStorage.getItem("token");
     // Status = localStorage.getItem("status");
@@ -93,42 +117,15 @@
     <!-- achive block -->
     <div class="achive">
       <div class="cards-list">
-  
-        <div class="card 1">
-          <div class="card_image"> <img src="https://i.redd.it/b3esnz5ra34y.jpg" /> </div>
+        {#each cards as card}
+        <div class="card">
+          <div class="card_image"> <img src={card.src} class="image-card" alt="error"/> </div>
           <div class="card_title title-white">
-            <p>Card Title</p>
+            <p class="card_title">{card.name}</p>
           </div>
         </div>
-        
-          <div class="card 2">
-          <div class="card_image">
-            <img src="https://cdn.blackmilkclothing.com/media/wysiwyg/Wallpapers/PhoneWallpapers_FloralCoral.jpg" />
-            </div>
-          <div class="card_title title-white">
-            <p>Card Title</p>
-          </div>
-        </div>
-        
-        <div class="card 3">
-          <div class="card_image">
-            <img src="https://s3.gifyu.com/images/DIZAIN-BEZ-NAZVANIY79d12a46d1fff15e.gif" />
-          </div>
-          <div class="card_title">
-            <p>Card Title</p>
-          </div>
-        </div>
-          
-          <div class="card 4">
-          <div class="card_image">
-            <img src="https://media.giphy.com/media/LwIyvaNcnzsD6/giphy.gif" />
-            </div>
-          <div class="card_title title-black">
-            <p>Card Title</p>
-          </div>
-          </div>
-        
-        </div>
+        {/each}
+      </div>
     </div>
 </div>
 
@@ -220,66 +217,59 @@
   /* card example */
 
   .cards-list {
-  z-index: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-.card {
-  margin: 30px auto;
-  width: 300px;
-  height: 300px;
-  border-radius: 40px;
-box-shadow: 5px 5px 30px 7px rgba(0,0,0,0.25), -5px -5px 30px 7px rgba(0,0,0,0.22);
-  cursor: pointer;
-  transition: 0.4s;
-}
-
-.card .card_image {
-  width: inherit;
-  height: inherit;
-  border-radius: 40px;
-}
-
-.card .card_image img {
-  width: inherit;
-  height: inherit;
-  border-radius: 40px;
-  object-fit: cover;
-}
-
-.card .card_title {
-  text-align: center;
-  border-radius: 0px 0px 40px 40px;
-  font-family: sans-serif;
-  font-weight: bold;
-  font-size: 30px;
-  margin-top: -80px;
-  height: 40px;
-}
-
-.card:hover {
-  transform: scale(0.9, 0.9);
-  box-shadow: 5px 5px 30px 15px rgba(0,0,0,0.25), 
-    -5px -5px 30px 15px rgba(0,0,0,0.22);
-}
-
-.title-white {
-  color: white;
-}
-
-.title-black {
-  color: black;
-}
-
-@media all and (max-width: 500px) {
-  .card-list {
-    /* On small screens, we are no longer using row direction but column */
-    flex-direction: column;
+    z-index: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
   }
-}
+
+  .card {
+    margin: 10px auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 40px;
+    border: 3px solid #E1E3E6;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+
+  .card .card_image {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+  }
+
+  .card .card_image img {
+    width: inherit;
+    height: inherit;
+    border-radius: 40px;
+    object-fit: cover;
+  }
+
+  .card .card_title {
+    text-align: center;
+    font-family: 'Ubuntu';
+    font-weight: 700;
+    font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+  }
+
+  .card:hover {
+    transform: scale(0.9, 0.9);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .title-white {
+    color: white;
+  }
+
+  @media all and (max-width: 500px) {
+    .card-list {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+    }
+  }
 
 
 </style>
