@@ -1,12 +1,10 @@
 <script context="module">
   import {fetches} from "$lib/api";
-
   export async function load({page}) {
     let id = page.params.teamId;
     let promise = fetches.get(`/teams/${id}`)
     return {props: {promise}}
   }
-
 </script>
 
 <script>
@@ -18,6 +16,8 @@
 <svelte:head>
   <title>teaming</title>
 </svelte:head>
+
+
 <div class="main">
   {#if teams === null}
     <div class="a-box">
@@ -29,7 +29,6 @@
     {/each}
   {/if}
 </div>
-
 
 <style>
   .a-box {
