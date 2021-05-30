@@ -10,9 +10,9 @@ async def fill_db():
     if len(await Hackathon.all()) != 0:
         return
     for hack in data:
-        city = hack['city']
-        location = await Location.create(city=city)
-        del hack['city']
+        city = hack["city"]
+        [location, _] = await Location.get_or_create(city=city)
+        del hack["city"]
 
         await Hackathon.create(
             **hack,
