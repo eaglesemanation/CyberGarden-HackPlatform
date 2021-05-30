@@ -2,16 +2,20 @@
   export const prerender = true;
 </script>
 
+<script>
+  import MainButton from '$lib/MainButton/index.svelte';
+</script>
+
 <svelte:head>
   <title>Главная</title>
 </svelte:head>
 
 <div class="main">
-  <img src="https://static.tildacdn.com/tild6538-3737-4330-a466-613333346563/Done.svg" alt=""/>
+  <img src="https://static.tildacdn.com/tild3866-6533-4062-a461-663039383531/Done.svg" alt=""/>
   <div class="text">
-    <h1 class="black">Garden<span class="green">Masters</span></h1>
+    <h1>Garden<span class="green">Masters</span></h1>
     <h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
-    <a href="/" class="main-button">Что за чудо инструмент?</a>
+    <MainButton btntext="Что за чудо-инструмент?"></MainButton>
   </div>
 </div>
 
@@ -19,62 +23,44 @@
 <style>
   .main {
     display: flex;
-    justify-content: space-around;
-    margin-top: 100px;
+    justify-content: center;
+    align-items: center;
+    padding: 5em;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-family: 'Ubuntu';
+    font-weight: 700;
+    font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1440 - 300)));
   }
 
   .green {
     color: #43DFA8;
   }
 
-  .black {
-    color: #00160A;
-    font-family: 'Ubuntu';
-    text-decoration: none;
-    font-size: calc(24px + (30 - 24) * ((100vw - 300px) / (1440 - 300)));
-    font-weight: 1000;
-  }
-
   .text {
-    margin-top: 100px;
+    max-width: 400px;
+    margin-left: 3em;
   }
 
   h3 {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    color: rgba(0, 22, 10, 0.7);
-    width: 40vw;
-    max-width: 500px;
-    margin-bottom: 30px;
-  }
-
-  .main-button {
-    background-color: #00160A;
-    color: #fff;
     font-family: 'Ubuntu';
-    font-weight: 500;
-    border-color: #00160A;
-    border-radius: 30px;
-    padding: 0.75em 2em;
+    color: #00160A;
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
+    font-weight: 400;
   }
 
   @media (max-width: 850px) {
     .main {
       flex-direction: column;
-      align-items: flex-start;
-    }
-
-    img {
-      margin-left: auto;
-      margin-right: auto;
     }
 
     .text {
-      margin-left: auto;
-      margin-right: auto;
+      margin-left: 0;
     }
   }
 </style>

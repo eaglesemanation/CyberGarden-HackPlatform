@@ -18,6 +18,7 @@
 
 	button:hover {
 		background-color:#43DFA8;
+		color: #00160A;
 	}
 
 	button:focus {
