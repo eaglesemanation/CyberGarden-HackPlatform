@@ -71,10 +71,12 @@
   .buttons{
     display: flex;
   }
+  
   svg{
     margin-left: 15px;
     margin-top: 10px;
   }
+
   input{
     width: 300px;
     height: 3em;
@@ -83,6 +85,13 @@
     font-family: 'Ubuntu';
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
+
+  input:focus {
+    outline: none;
+    border: 1px solid #43DFA8;
+    box-shadow: 0 0 10px rgba(67, 223, 168, 0.5);
+  }
+
   .a-box {
     height: 3.472em;
     background-color: whitesmoke;

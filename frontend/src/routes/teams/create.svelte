@@ -25,18 +25,20 @@
   }
 </script>
 <svelte:head>
-  <title>team creator</title>
+  <title>Создать команду</title>
 </svelte:head>
 
 
-<h1>Создать команду</h1>
 <div class="main">
-  <div class="box">
-    <div class="inputs">
-      <input bind:value={name} type="text" placeholder="Team name">
-      <input bind:value={hack} type="text" placeholder="For hack">
+  <div class="form">
+    <h1>Создать <span class="green">команду</span></h1>
+    <div class="box">
+      <div class="inputs">
+        <input bind:value={name} type="text" placeholder="Team name">
+        <input bind:value={hack} type="text" placeholder="For hack">
+      </div>
+      <button class="main-button" on:click={funcCreateTeam}>Создать команду</button>
     </div>
-    <button class="main-button" on:click={funcCreateTeam}>Создать команду</button>
   </div>
 
   <img src="/static/forTeamCreator.svg"/>
@@ -46,13 +48,11 @@
 <style>
   .main {
     display: flex;
-  }
-
-  img {
-    margin-top: -100px;
-    height: 40vw;
-    width: 40vw;
-    margin-right: 120px;
+    align-items: center;
+    justify-content: center;
+    place-items: center;
+    height: 80vh;
+    margin: 1em;
   }
 
   h1 {
@@ -60,28 +60,24 @@
     font-family: 'Ubuntu';
     text-decoration: none;
     font-size: calc(30px + (30 - 24) * ((100vw - 300px) / (1440 - 300)));
-    font-weight: 1000;
-    margin-left: 15px;
+    font-weight: 700;
   }
 
   .box {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-top: 70px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     background-color: #ffffff;
     border: 3px solid #E1E3E6;
     box-sizing: border-box;
     border-radius: 30px;
-    width: 40vw;
-    height: 20vw;
-    padding-top: 0;
-    margin-left: 2%;
-    margin-right: 2%;
-    padding: 2%;
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 300px;
+    padding: 4em;
+  }
+
+  .green {
+    color: #43DFA8;
   }
 
   .main-button {
@@ -94,7 +90,6 @@
     padding: 0.75em 2em;
     margin-left: auto;
     margin-right: auto;
-    width: 15vw;
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
 
@@ -107,8 +102,7 @@
   }
 
   input {
-    width: 30vw;
-    height: 48px;
+    padding: 1em;
     margin-bottom: 0.7em;
     border-radius: 8px;
     border: 1px solid #E1E3E6;
