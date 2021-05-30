@@ -38,8 +38,8 @@ class Participant(Model):
 
 class Captain(Model):
     id = fields.IntField(pk=True)
-    user = fields.ForeignKeyField("models.User", related_name="as_captain")
-    team: fields.ReverseRelation["Team"]
+    user = fields.OneToOneField("models.User", related_name="as_captain")
+    teams: fields.ReverseRelation["Team"]
 
 
 class Organizer(Model):
@@ -60,7 +60,7 @@ class Team(Model):
         "models.Participant"
     )
     invite_link = fields.CharField(max_length=64, unique=True)
-    capitan = fields.OneToOneField("models.Captain", related_name="team")
+    capitan = fields.ForeignKeyField("models.Captain", related_name="teams")
     hackathons: fields.ManyToManyRelation["Hackathon"]
 
     async def team_size(self) -> int:
@@ -99,8 +99,8 @@ class Hackathon(Model):
     start_date = fields.DateField()
     end_date = fields.DateField()
     #: Hackathon website url
-    image = fields.CharField(max_length=128, null=True)
-    url = fields.CharField(max_length=128, null=True)
+    image = fields.CharField(max_length=512, null=True)
+    url = fields.CharField(max_length=512, null=True)
     location_lon = fields.FloatField(null=True)
     location_lat = fields.FloatField(null=True)
     location: fields.ForeignKeyNullableRelation[Location] = fields.ForeignKeyField(

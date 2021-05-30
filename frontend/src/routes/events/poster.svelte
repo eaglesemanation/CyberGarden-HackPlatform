@@ -46,7 +46,6 @@
       return;
     } else if (selectedCity !== "") {
       posts.forEach(element => {
-        console.log(element.name);
         let hackCity = element.location.toLowerCase();
         if (hackCity.indexOf(selectedCity.toLowerCase()) !== -1) {
           postsMass = postsMass.concat(element);
@@ -55,7 +54,6 @@
       if (searchLine !== "") {
         postsMass = [].concat();
         posts.forEach(element => {
-          console.log(element.name);
           let hackCity = element.location.toLowerCase();
           let hackName = element.name.toLowerCase();
           if ((hackName.indexOf(searchLine.toLowerCase()) !== -1) && (hackCity.indexOf(selectedCity.toLowerCase()) !== -1)) {
@@ -65,7 +63,6 @@
       }
     } else {
       posts.forEach(element => {
-        console.log(element.name);
         let hackName = element.name.toLowerCase();
         if (hackName.indexOf(searchLine.toLowerCase()) !== -1) {
           postsMass = postsMass.concat(element);

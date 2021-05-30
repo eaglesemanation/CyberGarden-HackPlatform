@@ -93,7 +93,6 @@ export function storeFetch(url, method, data = null, token = null) {
     }
     const response = await fetch(url, request);
     const rsp = await response.json();
-    console.log(JSON.stringify(rsp))
     cache.set(url, rsp);
     store.set(Promise.resolve(rsp));
     dataStore.set(rsp);

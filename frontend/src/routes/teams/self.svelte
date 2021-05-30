@@ -1,5 +1,16 @@
+<script context="module">
+  import {fetches} from "$lib/api";
+
+  export async function load({page}) {
+    let id = page.params.teamId;
+    let promise = fetches.get(`/teams/${id}`)
+    return {props: {promise}}
+  }
+
+</script>
+
 <script>
-  import Team from '$lib/LittleTeam/index.svelte';
+  import Team from '$lib/TeamCard/index.svelte';
   // let teams = null;
   let teams = ["GardenMasters", "intSpirit"];
 </script>

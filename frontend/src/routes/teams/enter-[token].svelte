@@ -22,7 +22,7 @@
 <div>
   {#await $promise}
   {:then d}
-    <p>{d}</p>
+    <p>{JSON.stringify(d)}</p>
   {/await}
   <h1>Hello</h1>
 </div>
