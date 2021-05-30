@@ -113,7 +113,7 @@
         <button on:click={funcDelete}>DELETE ACCOUNT</button>
       {/if}
     </div>
-
+    <h1 class="naming">Будет, что <span class="green">рассказать маме</span></h1>
     <!-- achive block -->
     <div class="achive">
       <div class="cards-list">
@@ -136,6 +136,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .info-block {
     display: flex;
     flex-direction: column;
@@ -146,12 +147,21 @@
     margin: 1em;
   }
 
+  .green {
+    color: #43DFA8;
+  }
+
   h1 {
     font-family: 'Ubuntu';
     font-size: calc(18px + (26 - 18) * ((100vw - 300px) / (1440 - 300)));
     color: #00160A;
     margin-bottom: 0;
     font-weight: 700;
+  }
+
+  .naming {
+    margin-bottom: 2%;
+    text-align: center;
   }
   
   .skills {
@@ -233,6 +243,7 @@
     border: 3px solid #E1E3E6;
     cursor: pointer;
     transition: 0.4s;
+    margin-bottom: 15%;
   }
 
   .card .card_image {
