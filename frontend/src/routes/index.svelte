@@ -45,7 +45,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5em;
+    height: 100vh;
   }
 
   .about {
