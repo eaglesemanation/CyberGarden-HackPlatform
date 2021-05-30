@@ -1,11 +1,12 @@
 from datetime import date
-from typing import List, Optional
+from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException
+from httpx import AsyncClient
 from models import Hackathon, Publication
 from pydantic import BaseModel, Field
 from tortoise.contrib.pydantic import pydantic_model_creator
-from httpx import AsyncClient
+
 from crud.users import get_capitan, get_organizer, get_user
 
 router = APIRouter()
@@ -16,7 +17,9 @@ class NewHackathon(BaseModel):
     description: str
     start_date: date = Field(default="2021-05-29")
     end_date: date = Field(default="2021-05-29")
-    image: str = Field(default="https://cdn22.img.ria.ru/images/07e4/05/06/1571020469_0:0:1920:1080_600x0_80_0_0_8492ea5758147feadb42f576ad3ae00c.jpg")
+    image: str = Field(
+        default="https://cdn22.img.ria.ru/images/07e4/05/06/1571020469_0:0:1920:1080_600x0_80_0_0_8492ea5758147feadb42f576ad3ae00c.jpg"
+    )
 
 
 PublicHackathon = pydantic_model_creator(Hackathon, exclude=("organizers", "teams"))
@@ -96,19 +99,21 @@ class NewPublication(BaseModel):
     text: str
 
 
-PublicationView = pydantic_model_creator(Publication, exclude=("hackathon", ))
+PublicationView = pydantic_model_creator(Publication, exclude=("hackathon",))
 
 
 @router.post("/{id}/publish")
 async def publish_post(id: int, publication: NewPublication):
     hackathon = await Hackathon.get_or_none(id=id)
     if hackathon is None:
-        raise HTTPException(status_code=404, detail='Hackathon not found')
+        raise HTTPException(status_code=404, detail="Hackathon not found")
 
-    publication = await Publication.create(**publication.dict(), hackathon_id=hackathon.id)
+    publication = await Publication.create(
+        **publication.dict(), hackathon_id=hackathon.id
+    )
     # TODO FETCH TO BOT SERVER
     message = f"{hackathon.name}: {publication.title}\n{publication.text}"
     print(message)
     async with AsyncClient() as client:
-        await client.post("http://cybergarden.hackmasters.tech:8080/", json={"message": message})
+        await client.post("http://notifier:8080", json={"message": message})
     return await PublicationView.from_tortoise_orm(publication)
