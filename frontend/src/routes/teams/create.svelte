@@ -1,4 +1,6 @@
 <script>
+  import {goto} from "$app/navigation";
+
   let name = "";
   let hack = "";
 
@@ -17,7 +19,7 @@
   function funcCreateTeam() {
     if (!validate()) return;
     //отдаем серверу команду
-    window.location.replace("/teaming");
+    goto('/teams/self')
   }
 </script>
 <svelte:head>
