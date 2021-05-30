@@ -39,7 +39,7 @@
 
   //его строем после поиска
   function funcSearch(massF) {
-    // console.log(massF);
+    console.log(massF);
     postsMass = [];
     if (selectedCity === "All") selectedCity = "";
     if (searchLine === "" && selectedCity === "") {
