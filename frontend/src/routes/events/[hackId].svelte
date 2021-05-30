@@ -31,7 +31,7 @@
 {:then {
   id, name, description, location_lon,
   location_lat, location, sponsors, tags,
-  image, start_date, end_date
+  image, start_date, end_date, publications
 }}
   <div class="main">
     <div class="info">
@@ -40,7 +40,7 @@
       <h1>{name}</h1>
       <h2>{start_date} - {end_date}</h2>
     </div>
-    
+
     <div class="locationBox">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -49,8 +49,13 @@
       </svg>
       <h3 class="location">{location.city}</h3>
     </div>
-  </div>
 
+    {#each publications as {title, text, date}}
+      <p>{title}</p>
+      <p>{text}</p>
+      <p>{date}</p>
+    {/each}
+  </div>
 {/await}
 
 <style>
