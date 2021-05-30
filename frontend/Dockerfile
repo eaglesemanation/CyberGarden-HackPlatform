@@ -4,6 +4,7 @@ FROM node:14-buster-slim as build
 WORKDIR /app
 COPY package.json ./
 COPY src ./
+COPY static ./
 RUN npm install
 # Svelte is useless piece of bleeding edge garbage
 RUN npm install '@sveltejs/kit@1.0.0-next.110'
