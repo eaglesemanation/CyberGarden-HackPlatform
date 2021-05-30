@@ -19,6 +19,9 @@
     organizers: ["ooo 3 axes", "12edsa"],
     sponsor: ["12", "12e12"]
   }//запрос с сервера
+  function show(a){
+    alert(a);
+  }
 </script>
 
 <svelte:head>
@@ -30,9 +33,63 @@
   location_lat, location, sponsors, tags,
   image, start_date, end_date
 }}
-  <h1>{id}</h1>
-  <h1>name: {name}</h1>
-  <h1>start_date: {start_date}</h1>
-  <h1>end_date: {end_date}</h1>
-  <h1>address: {location}</h1>
+  <div class="main">
+    <div class="info">
+      <button on:click={show(tags)}>show</button>
+      <img src={image} alt="">
+      <h1>{name}</h1>
+      <h2>{start_date} - {end_date}</h2>
+    </div>
+    
+    <div class="locationBox">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+            d="M12 2C8.14 2 5 5.14 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.14 15.86 2 12 2ZM16 10H13V13H11V10H8V8H11V5H13V8H16V10Z"
+            fill="#43DFA8"/>
+      </svg>
+      <h3 class="location">{location.city}</h3>
+    </div>
+  </div>
+  
+
 {/await}
+
+<style>
+  .main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 30px;
+    background-color: #ffffff;
+    border: 3px solid #E1E3E6;
+    box-sizing: border-box;
+    border-radius: 30px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vw;
+  }
+  img{
+    height: 60%;
+    width: 60%;
+    margin-left:20%;
+    border: 6px solid #43DFA8;
+  }
+  .location {
+    color: #43DFA8;
+  }
+  svg{
+    margin-top: 17px;
+  }
+  .locationBox {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h1, h2{
+    text-align: center;
+  }
+</style>
