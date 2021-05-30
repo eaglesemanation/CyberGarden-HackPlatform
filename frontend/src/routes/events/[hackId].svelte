@@ -35,7 +35,7 @@
 }}
   <div class="main">
     <div class="info">
-      <button on:click={show(tags)}>show</button>
+      <!-- <button on:click={show(tags)}>show</button> -->
       <img src={image} alt="">
       <h1>{name}</h1>
       <h2>{start_date} - {end_date}</h2>
