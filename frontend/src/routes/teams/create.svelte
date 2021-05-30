@@ -1,5 +1,7 @@
 <script>
   import {goto} from "$app/navigation";
+  import {fetches} from "$lib/api";
+  import {session} from "$app/stores";
 
   let name = "";
   let hack = "";
@@ -18,7 +20,7 @@
 
   function funcCreateTeam() {
     if (!validate()) return;
-    //отдаем серверу команду
+    fetches.post('/teams/create', {name}, $session.token)
     goto('/teams/self')
   }
 </script>
@@ -37,7 +39,7 @@
     <button class="main-button" on:click={funcCreateTeam}>Создать команду</button>
   </div>
 
-  <img src="./static/forTeamCreator.svg"/>
+  <img src="/static/forTeamCreator.svg"/>
 </div>
 
 

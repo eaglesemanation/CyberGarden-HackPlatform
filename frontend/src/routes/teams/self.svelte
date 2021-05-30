@@ -1,9 +1,9 @@
 <script context="module">
   import {fetches} from "$lib/api";
 
-  export async function load({page}) {
+  export async function load({page, session}) {
     let id = page.params.teamId;
-    let promise = fetches.get(`/teams/${id}`)
+    let promise = fetches.get(`/teams/my`, session.token)
     return {props: {promise}}
   }
 
@@ -12,26 +12,35 @@
 <script>
   import Team from '$lib/TeamCard/index.svelte';
   // let teams = null;
-  let teams = ["GardenMasters", "intSpirit"];
+  // let teams = ["GardenMasters", "intSpirit"];
+  export let promise;
+  let teamToken;
 </script>
 
 <svelte:head>
   <title>teaming</title>
 </svelte:head>
 <div class="main">
-  {#if teams === null}
-    <div class="a-box">
-      <a class="main-button" sveltekit:prefetch href="/teamCreator">join team</a>
-    </div>
-  {:else}
-    {#each teams as team}
+
+  <div class="join-block">
+    <input placeholder="Токен команды" bind:value={teamToken}>
+    <a class="main-button" sveltekit:prefetch href="/teams/enter-{teamToken}">Присоедниться</a>
+  </div>
+  <a class="main-button" sveltekit:prefetch href="/teams/create">Создать команду</a>
+  {#await $promise}
+  {:then {as_captain, as_participant}}
+    {#each as_captain || [] as team}
       <Team name={team}/>
     {/each}
-  {/if}
+  {/await}
 </div>
 
 
 <style>
+  .join-block {
+    width: 400px;
+    height: 90px;
+  }
   .a-box {
     margin-left: 45vw;
     margin-top: 50px;

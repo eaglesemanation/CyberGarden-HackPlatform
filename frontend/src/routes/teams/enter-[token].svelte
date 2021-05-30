@@ -8,8 +8,7 @@
     }
 
     let invite = page.params.token;
-    let promise = fetches.get(`/teams/enter/${invite}`);
-
+    let promise = fetches.get(`/teams/enter/${invite}`, token);
     return {props: {promise}}
   }
 </script>
