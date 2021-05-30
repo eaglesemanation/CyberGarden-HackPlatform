@@ -11,10 +11,10 @@
   import MainButton from '$lib/MainButton/index.svelte';
   import {sendForm} from "$lib/api";
   import {goto} from "$app/navigation";
+  import {session} from "$app/stores";
 
   let mail = "";
   let password = "";
-  let Token;
   let errorMessage = null;
   $: showError = !!errorMessage;
 

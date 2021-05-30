@@ -4,6 +4,7 @@
   export let location = "";
   export let about = "";
   export let likes = 0;
+  export let link = "";
 </script>
 
 <div class="postBox">
@@ -22,7 +23,7 @@
   </div>
 
   <div class="bottom">
-    <a class="main-button" sveltekit:prefetch href="/eventPage-{name}">Регистрация</a>
+    <a class="main-button" sveltekit:prefetch href="/eventPage-{link}">Регистрация</a>
     <h3>{likes}</h3>
   </div>
 

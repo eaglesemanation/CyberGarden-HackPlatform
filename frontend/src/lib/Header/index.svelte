@@ -5,8 +5,15 @@
   import {session} from "$app/stores";
   import {goto} from "$app/navigation";
   import {deleteCookie} from "$lib/api";
-  let {token, role} = $session;
+
+  let token, role;
+  session.subscribe(value => {
+    token = value.token;
+    role = value.role;
+  })
+
   function exit() {
+    $session = {token: null, role: null};
     deleteCookie("token");
     deleteCookie("role");
     goto('/');

@@ -2,7 +2,7 @@
   import {fetches} from "$lib/api";
   export async function load({session}) {
     let {token, role} = session;
-    if (!token || !role) {
+    if (!token && !role && role === 'organizer') {
       return {redirect: "/users/signin", status: 301};
     }
     return {};
@@ -11,17 +11,21 @@
 
 <script>
   import MainButton from '$lib/MainButton/index.svelte';
+  import {session} from "$app/stores";
 
   let name = "";
   let description = "";
 
-  let date1;
-  let date2;
+  let start_date;
+  let end_date;
   let organizer = [];
   let sponsor = [];
 
+  // TODO add organizer, sponsor
   function create() {
-    fetches.post()
+    fetches.post('/hacks/create',
+      {name, description, start_date, end_date},
+      $session.token)
   }
 </script>
 
@@ -36,14 +40,14 @@
     <input bind:value={name} type="text" placeholder="Название">
     <!-- svelte-ignore a11y-label-has-associated-control -->
     <label>Дата начала хакатона:</label>
-    <input bind:value={date1} type="date" placeholder="Дата начала хакатона">
+    <input bind:value={start_date} type="date" placeholder="Дата начала хакатона">
     <label>Дата окончания хакатона:</label>
-    <input bind:value={date2} type="date" placeholder="Дата окончания хакатона">
+    <input bind:value={end_date} type="date" placeholder="Дата окончания хакатона">
     <textarea class="description" bind:value={description} placeholder="Описание"></textarea>
     <input bind:value={sponsor} type="text" placeholder="Спонсоры">
     <input bind:value={organizer} type="text" placeholder="Организаторы">
   </div>
-  <MainButton on:click={create} btntext="Создать"></MainButton>
+  <MainButton on:click={create} btntext="Создать"/>
 </div>
 
 <style>

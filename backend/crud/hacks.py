@@ -1,5 +1,5 @@
 from datetime import date
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from models import Hackathon
@@ -16,6 +16,7 @@ class NewHackathon(BaseModel):
     description: str
     start_date: date = Field(default="2021-05-29")
     end_date: date = Field(default="2021-05-29")
+    image: str = Field(default="https://cdn22.img.ria.ru/images/07e4/05/06/1571020469_0:0:1920:1080_600x0_80_0_0_8492ea5758147feadb42f576ad3ae00c.jpg")
 
 
 PublicHackathon = pydantic_model_creator(Hackathon, exclude=("organizers", "teams"))

@@ -1,5 +1,6 @@
 import {writable, get} from 'svelte/store'
 import cookie from 'cookie';
+import {session} from "$app/stores";
 
 export const apiUrl = 'https://b.cybergarden.hackmasters.tech';
 export const selfUrl = 'https://cybergarden.hackmasters.tech';
@@ -32,7 +33,7 @@ export function setCookie(name, value, options = {}) {
 
 export async function sendForm(isLogin, username, password) {
   let json_response = await fetch(
-    apiUrl + (isLogin ? '/users/token' : '/users/create'),
+    apiUrl + (isLogin ? '/users/token' : '/users/create_organizer'),
     {
       method: 'POST',
       credentials: 'omit',
@@ -50,6 +51,7 @@ export async function sendForm(isLogin, username, password) {
 
   setCookie('token', access_token);
   setCookie('role', role);
+  session.set({token: access_token, role})
 }
 
 
