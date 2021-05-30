@@ -6,6 +6,8 @@ asynctest==0.13.0
 atomicwrites==1.4.0
 attrs==20.2.0
 bcrypt==3.2.0
+beautifulsoup4==4.9.3
+bs4==0.0.1
 certifi==2020.6.20
 cffi==1.14.3
 chardet==3.0.4
@@ -48,6 +50,7 @@ rfc3986==1.4.0
 rsa==4.6
 six==1.15.0
 sniffio==1.1.0
+soupsieve==2.2.1
 starlette==0.13.6
 toml==0.10.1
 tortoise-orm==0.16.15

@@ -50,7 +50,6 @@
       <h3 class="location">{location.city}</h3>
     </div>
   </div>
-  
 
 {/await}
 

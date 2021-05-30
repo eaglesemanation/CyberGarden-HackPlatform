@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from models import Hackathon, Publication
 from pydantic import BaseModel, Field
 from tortoise.contrib.pydantic import pydantic_model_creator
-
+from httpx import AsyncClient
 from crud.users import get_capitan, get_organizer, get_user
 
 router = APIRouter()
@@ -107,4 +107,8 @@ async def publish_post(id: int, publication: NewPublication):
 
     publication = await Publication.create(**publication.dict(), hackathon_id=hackathon.id)
     # TODO FETCH TO BOT SERVER
+    message = f"{hackathon.name}: {publication.title}\n{publication.text}"
+    print(message)
+    async with AsyncClient() as client:
+        await client.post("http://cybergarden.hackmasters.tech:8080/", json={"message": message})
     return await PublicationView.from_tortoise_orm(publication)
