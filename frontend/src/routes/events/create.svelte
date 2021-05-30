@@ -12,6 +12,7 @@
 <script>
   import MainButton from '$lib/MainButton/index.svelte';
   import {session} from "$app/stores";
+  import {goto} from "$app/navigation";
 
   let name = "";
   let description = "";
@@ -26,6 +27,7 @@
     fetches.post('/hacks/create',
       {name, description, start_date, end_date},
       $session.token)
+    goto('/events/poster')
   }
 </script>
 

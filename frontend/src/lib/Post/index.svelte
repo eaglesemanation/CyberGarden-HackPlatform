@@ -1,4 +1,5 @@
 <script>
+  export let id = "";
   export let name = "";
   export let date = "";
   export let location = "";
@@ -23,7 +24,7 @@
   </div>
 
   <div class="bottom">
-    <a class="main-button" sveltekit:prefetch href="/eventPage-{link}">Регистрация</a>
+    <a class="main-button" sveltekit:prefetch href="/events/{id}">Регистрация</a>
     <h3>{likes}</h3>
   </div>
 
@@ -41,26 +42,32 @@
     box-sizing: border-box;
     border-radius: 30px;
     width: 681px;
-    padding-top: 0;
     margin-left: 2%;
     margin-right: 2%;
     padding: 2%;
   }
 
   h2, h3, p {
-    font-family: 'Ubuntu';
+    font-family: 'Ubuntu', serif;
     color: #00160A;
     line-height: 0.5;
   }
 
   h2 {
+    line-height: 1;
     font-weight: 700;
     font-size: 30px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   h3 {
     font-size: 20px;
     font-weight: 500;
+  }
+
+  a {
+    line-height: 2;
   }
 
   p {

@@ -6,7 +6,7 @@ from models import Hackathon
 from pydantic import BaseModel, Field
 from tortoise.contrib.pydantic import pydantic_model_creator
 
-from crud.users import get_capitan, get_organizer
+from crud.users import get_capitan, get_organizer, get_user
 
 router = APIRouter()
 
@@ -26,8 +26,9 @@ UpdatedHackathon = pydantic_model_creator(
 
 
 @router.post("/create", response_model=PublicHackathon)
-async def create(new_hack: NewHackathon, user=Depends(get_organizer)):
+async def create(new_hack: NewHackathon, user=Depends(get_user)):
     hack = await Hackathon.create(**new_hack.dict())
+    await hack.organizers.add(await user.as_organizer)
     return await PublicHackathon.from_tortoise_orm(hack)
 
 

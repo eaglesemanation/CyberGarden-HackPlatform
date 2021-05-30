@@ -1,41 +1,51 @@
+<script context="module">
+  import {fetches} from "$lib/api";
+
+  export async function load({}) {
+    let promise = fetches.get('/hacks/all');
+    return {props: {promise}};
+  }
+</script>
+
 <script>
   import Post from '$lib/Post/index.svelte';
   // import { element } from 'svelte/internal';
   let searchLine = "";
   let answer;
   let selectedCity = "";
-  const cityMass = [
+  const cities = [
     "All", "Таганрог", "Луна", "Москва"
   ]
-  const postsMassFronServer = [
-    {
-      name: "CyberGarden Hack",
-      location: "Таганрог",
-      date: "28.05.2021 - 30.05.2021",
-      about: "Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей",
-      likes: 56
-    },
-    {
-      name: "hack moon",
-      location: "Луна",
-      date: "33.06.2022 - 32.06.2022",
-      about: "супер пупер дупер хак номер 2",
-      likes: 4
-    }
-  ];
+  export let promise; //= [
+    // {
+    //   name: "CyberGarden Hack",
+    //   location: "Таганрог",
+    //   date: "28.05.2021 - 30.05.2021",
+    //   about: "Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей. Хакатон под пальмами для самых крутых людей",
+    //   likes: 56
+    // },
+    // {
+    //   name: "hack moon",
+    //   location: "Луна",
+    //   date: "33.06.2022 - 32.06.2022",
+    //   about: "супер пупер дупер хак номер 2",
+    //   likes: 4
+    // }
+  // ];
 
   //для примера, заполнять будем после
-  let postsMass = postsMassFronServer;
+  let posts = [];
+  let postsMass = posts;
 
   //его строем после поиска
   function funcSearch() {
-    postsMass = [].concat();
+    postsMass = [];
     if (selectedCity === "All") selectedCity = "";
     if (searchLine === "" && selectedCity === "") {
-      postsMass = postsMassFronServer.concat();
+      postsMass = posts.concat();
       return;
     } else if (selectedCity !== "") {
-      postsMassFronServer.forEach(element => {
+      posts.forEach(element => {
         console.log(element.name);
         let hackCity = element.location.toLowerCase();
         if (hackCity.indexOf(selectedCity.toLowerCase()) !== -1) {
@@ -44,7 +54,7 @@
       });
       if (searchLine !== "") {
         postsMass = [].concat();
-        postsMassFronServer.forEach(element => {
+        posts.forEach(element => {
           console.log(element.name);
           let hackCity = element.location.toLowerCase();
           let hackName = element.name.toLowerCase();
@@ -54,7 +64,7 @@
         });
       }
     } else {
-      postsMassFronServer.forEach(element => {
+      posts.forEach(element => {
         console.log(element.name);
         let hackName = element.name.toLowerCase();
         if (hackName.indexOf(searchLine.toLowerCase()) !== -1) {
@@ -91,12 +101,8 @@
       </button>
     </div>
   </div>
-
-
-  <!-- svelte-ignore a11y-no-onchange -->
-  <!-- svelte-ignore missing-declaration -->
   <select class="cities" bind:value={selectedCity} on:change="{() => answer = ''}">
-    {#each cityMass as question}
+    {#each cities as question}
       <option value={question}>
         {question}
       </option>
@@ -107,9 +113,12 @@
 
 
 <div class="events-block">
-  {#each postsMass as post}
-    <Post {...post}/>
-  {/each}
+  {#await $promise}
+  {:then posts}
+    {#each posts as post}
+      <Post {...post}/>
+    {/each}
+  {/await}
 </div>
 
 <style>
