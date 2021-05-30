@@ -15,7 +15,11 @@
 
 <script>
   export let promise;
-  const mass = {hack: "Cyber Garden", capitan: "Дмитрий Дин"}
+  const mass = {hack: "Cyber Garden", capitan: "Дмитрий Дин"};
+  let state = 1;
+  function funcState(){
+    state = 0;
+  }
 </script>
 
 <div>
@@ -26,15 +30,19 @@
       <h1>{telo.name}</h1>
       <div class="bot">
         <div class="info">
-          <h2>Capitan: {mass.capitan}</h2>
-          <h2>Hackathon: {mass.hack}</h2>
+          {#if state===1}
+            <h2>Capitan: {mass.capitan}</h2>
+            <h2>Hackathon: {mass.hack}</h2>
+          {:else}
+            <h2>Поздравляем, ваш запрос отправлен на рассмотрение командира команды!</h2>
+          {/if}
+          
         </div>
         <div class="a-box">
-          <a on:click={funcSearch(posts)}>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd"
-                    d="M2 8C2 4.691 4.691 2 8 2C11.309 2 14 4.691 14 8C14 11.309 11.309 14 8 14C4.691 14 2 11.309 2 8ZM17.707 16.293L14.312 12.897C15.365 11.543 16 9.846 16 8C16 3.589 12.411 0 8 0C3.589 0 0 3.589 0 8C0 12.411 3.589 16 8 16C9.846 16 11.543 15.365 12.897 14.312L16.293 17.707C16.488 17.902 16.744 18 17 18C17.256 18 17.512 17.902 17.707 17.707C18.098 17.316 18.098 16.684 17.707 16.293Z"
-                    fill="#757D8A"/>
+          <a on:click={funcState()}>
+            <svg width="96" height="90" viewBox="0 0 96 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0.797867" y1="44.3972" x2="34.7979" y2="89.3972" stroke="#909090" stroke-width="5"/>
+              <line x1="33.1825" y1="89.424" x2="95.1825" y2="1.42405" stroke="#919191" stroke-width="5"/>
             </svg>
           </a>
         </div>
@@ -43,7 +51,7 @@
     </div>
     
   {/await}
-  <h2 style="text-align:center">Поздравляем, ваш запрос отправлен на рассмотрение командира команды!</h2>
+  
 </div>
 
 <style>
@@ -74,14 +82,21 @@
     width: 600px;
     margin-left: auto;
     margin-right: auto;
+    
     padding: 2%;
   }
   .a-box {
-    height: 52px;
-    background-color: whitesmoke;
+    height: 60px;
+    background-color: #43dfb4;
     border: 1px solid #E1E3E6;
-    width: 40px;
+    width: 60px;
     /* margin-left: -5px; */
+  }
+  svg{
+    margin-left: 5px;
+    margin-top: 3px;
+    width: 50px;
+    height: 50px;
   }
   .a-box:hover {
     background-color: rgb(228, 225, 225);
