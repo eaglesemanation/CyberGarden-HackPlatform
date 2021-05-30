@@ -1,16 +1,33 @@
-<script>
+<script context="module">
 
+  export async function load({page}) {
+    let hackId = page.params.hackId;
+    return {props: {hackId}}
+  }
+</script>
+<script>
+  import {fetches} from "$lib/api";
+  import {session} from "$app/stores";
+  import {goto} from "$app/navigation";
+  export let hackId;
+
+  let title = ""
+  let text = "";
+  function create() {
+    fetches.post(`/hacks/${hackId}/publish`, {title, text}, session.token);
+    goto(`/events/${hackId}`);
+  }
 </script>
 
 <div class="box">
-    <h1>Создание новости</h1>
-    <input placeholder="Название">
-    <input placeholder="Текст">
-    <button class="main-button">Создать</button>
+  <h1>Создание новости</h1>
+  <input bind:value={title} placeholder="Название">
+  <input bind:value={text} placeholder="Текст">
+  <button class="main-button" on:click={create}>Создать</button>
 </div>
 
 <style>
-    .box{
+  .box {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,6 +44,7 @@
     margin-right: auto;
     width: 50vw;
   }
+
   input {
     width: 80%;
     margin-left: auto;
@@ -38,9 +56,11 @@
     font-family: 'Ubuntu';
     font-size: calc(14px + (18 - 14) * ((100vw - 300px) / (1440 - 300)));
   }
-  h1{
-      text-align: center;
+
+  h1 {
+    text-align: center;
   }
+
   .main-button {
     text-align: center;
     width: 200px;

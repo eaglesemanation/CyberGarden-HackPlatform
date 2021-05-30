@@ -57,7 +57,7 @@
       <p style="text-align: right">{date.substr(0,10)}</p>
     </div>
     {/each}
-    <a href="/events/newsCreator" class="main-button">Создать новость</a>
+    <a href="/events/{id}-createNews" class="main-button">Создать новость</a>
   </div>
 {/await}
 

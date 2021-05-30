@@ -1,12 +1,10 @@
 <script context="module">
   import {fetches} from "$lib/api";
-
   export async function load({page, session}) {
     let id = page.params.teamId;
     let promise = fetches.get(`/teams/my`, session.token)
     return {props: {promise}}
   }
-
 </script>
  
 <script>
