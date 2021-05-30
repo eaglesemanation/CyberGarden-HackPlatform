@@ -15,7 +15,7 @@
   <div class="text">
     <h1>Garden<span class="green">Masters</span></h1>
     <h3>Платформа для проведения мероприятий с упором на социальное взаимодействие и умную работу с данными</h3>
-    <MainButton btntext="Что за чудо-инструмент?"></MainButton>
+    <MainButton btntext="Что за чудо-инструмент?"/>
   </div>
 </div>
 
